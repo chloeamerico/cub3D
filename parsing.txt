@@ -1,0 +1,82 @@
+Étape 1 : Validation des arguments
+
+Vérifier que le programme reçoit exactement un argument avec l'extension .cub. Retourner "Error" avec un message explicite si le fichier n'existe pas ou n'est pas accessible.
+
+​
+Étape 2 : Lecture du fichier
+
+Ouvrir le fichier .cub et lire son contenu ligne par ligne avec get_next_line ou read(). Stocker les lignes dans une structure temporaire pour faciliter le traitement.
+​
+
+​
+Étape 3 : Parser les éléments de configuration
+
+Extraire et valider ces 6 éléments obligatoires (l'ordre n'est pas important) :
+​
+
+​
+
+    NO : chemin vers la texture nord (format .xpm)
+
+    SO : chemin vers la texture sud (format .xpm)
+
+    WE : chemin vers la texture ouest (format .xpm)
+
+    EA : chemin vers la texture est (format .xpm)
+
+    F : couleur du sol au format R,G,B (valeurs entre 0-255)
+
+    C : couleur du plafond au format R,G,B (valeurs entre 0-255)
+
+Pour chaque élément :
+​
+
+​
+
+    Ignorer les espaces multiples entre l'identifiant et la valeur
+
+    Vérifier que les fichiers de texture existent et sont accessibles
+
+    Valider le format RGB (3 nombres séparés par des virgules, sans espaces, range 0-255)
+
+    Vérifier qu'aucun élément n'est dupliqué
+
+Étape 4 : Parser la carte
+
+La carte doit toujours être en dernier dans le fichier. Les caractères autorisés sont :
+​
+
+​
+
+    0 : espace vide (sol)
+
+    1 : mur
+
+    N, S, E, W : position de départ du joueur (un seul autorisé)
+
+    (espace) : fait partie de la carte et doit être géré
+
+Stocker la carte dans un tableau 2D de chaînes de caractères, en préservant exactement la structure du fichier.
+
+​
+Étape 5 : Validation de la carte
+
+Vérifications essentielles :
+​
+
+​
+
+    Un et un seul joueur (N, S, E, ou W) doit être présent
+
+    La première et dernière ligne ne doivent contenir que des 1 et des espaces
+
+    Chaque ligne doit commencer et finir par un 1 (après avoir ignoré les espaces de début)
+
+    La carte doit être fermée et entourée de murs
+
+Algorithme de validation avec flood fill :
+
+​
+
+Utiliser un flood fill pour détecter si le joueur peut "sortir" de la carte. Parcourir tous les espaces vides (0) et les positions de joueur, et vérifier qu'ils sont toujours adjacents à des murs (1) ou d'autres espaces valides.
+​

@@ -6,14 +6,17 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:59:37 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/10 14:21:40 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:12:07 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	printf("hello\n");
+	if (!envp || !*envp)
+		return (ft_printf("Error : There is no environment\n"), 1);
+	if(check_arg(argc, argv))
+		return(1);
 	return(0);
 }
