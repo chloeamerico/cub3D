@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:54:45 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:52:17 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int check_arg(int argc, char **argv)
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)
 {
-	game->map = load_map(argv[1]);
+	game->file_map = load_map(argv[1]);
+	return(0);
 }

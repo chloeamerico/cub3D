@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:55:18 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:57:27 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 int check_arg(int argc, char **argv);
 int	init_struct(t_game *game, char **argv);
 char	**load_map(char *name_map);
+int divide_map_config(t_game *game);
 
 void	free_map(char **map);
 
@@ -43,7 +44,8 @@ void	free_map(char **map);
 
 typedef struct	s_game
 {
-	char **map;
+	char	**file_map;		//tout le fichier .cub transforme en char **
+	char	**map;			//que la map
 }	t_game;
 
 /* ************************************************************************** */

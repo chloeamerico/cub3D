@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:52:02 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:54:15 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:06:34 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ char	**load_map(char *name_map)
 	map[i] = NULL;
 	return (close(fd), map);
 }
+
