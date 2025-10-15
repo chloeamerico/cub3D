@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 16:57:27 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:29:51 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 int check_arg(int argc, char **argv);
 int	init_struct(t_game *game, char **argv);
-char	**load_map(char *name_map);
 int divide_map_config(t_game *game);
 
 void	free_map(char **map);

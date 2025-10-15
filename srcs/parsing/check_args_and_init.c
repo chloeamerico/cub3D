@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 16:52:17 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:29:45 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,34 @@ int check_arg(int argc, char **argv)
 	return (0);
 }
 
+// ouvre le fichier, lit le fichier .cub ligne par ligne, et le transforme en tableau char **
+static char	**load_file(char *name_map)
+{
+	char	**file;
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open(name_map, O_RDONLY);
+	if (fd < 0)
+		return (perror("Error opening file"), NULL);
+	file = malloc(sizeof(char *) * 100);
+	if (!file)
+		return (NULL);
+	line = get_next_line(fd);
+	while (line)
+	{
+		file[i++] = line;
+		line = get_next_line(fd);
+	}
+	file[i] = NULL;
+	return (close(fd), file);
+}
+
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)
 {
-	game->file_map = load_map(argv[1]);
+	game->file_map = load_file(argv[1]);
 	return(0);
 }
