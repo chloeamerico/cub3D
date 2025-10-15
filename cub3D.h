@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 16:55:34 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:06:52 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,21 @@
 /* ************************************************************************** */
 
 int check_arg(int argc, char **argv);
+int	init_struct(t_game *game, char **argv);
+char	**load_map(char *name_map);
+int divide_map_config(t_game *game);
+
+void	free_map(char **map);
 
 /* ************************************************************************** */
 /* STRUCTURES                                                                 */
 /* ************************************************************************** */
 
-
+typedef struct	s_game
+{
+	char	**file_map;		//tout le fichier .cub transforme en char **
+	char	**map;			//que la map
+}	t_game;
 
 /* ************************************************************************** */
 /* PROTO                                                                      */

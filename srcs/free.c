@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 13:59:37 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:55:26 by camerico         ###   ########.fr       */
+/*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
+/*   Updated: 2025/10/15 12:46:33 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(int argc, char **argv, char **envp)
+void	free_map(char **map)
 {
-	t_game	game;
-	
-	if (!envp || !*envp)
-		return (ft_printf("Error : There is no environment\n"), 1);
-	if(check_arg(argc, argv))
-		return(1);
-	if(init_struct(&game, argv))
-		return(1);
-	return(0);
+	int	i;
+
+	if(!map)
+		return;
+	while(map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }
