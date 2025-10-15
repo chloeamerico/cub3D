@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   check_args_and_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/14 14:22:23 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:54:45 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ int check_arg(int argc, char **argv)
 	if (check_file_exist(argv[1]))
 		return (1);
 	return (0);
+}
+
+//fonciton poru initialiser les variables de la structure
+int	init_struct(t_game *game, char **argv)
+{
+	game->map = load_map(argv[1]);
 }
