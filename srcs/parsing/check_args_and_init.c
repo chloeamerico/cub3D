@@ -6,14 +6,14 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 17:29:45 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:17:17 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //verifie que ce n'est pas seulement .cub
-static int	check_extension(char *arg)
+static int	check_extension_cub(char *arg)
 {
 	int	len;
 	
@@ -31,7 +31,7 @@ static int	check_extension(char *arg)
 	return (0);
 }
 
-static int	check_file_exist(char *name)
+int	check_file_exist(char *name)
 {
 	int	fd;
 
@@ -52,7 +52,7 @@ int check_arg(int argc, char **argv)
 		ft_printf("Error : number of arguments invalid\n");
 		return (1);
 	}
-	if (check_extension(argv[1]))
+	if (check_extension_cub(argv[1]))
 		return (1);
 	if (check_file_exist(argv[1]))
 		return (1);

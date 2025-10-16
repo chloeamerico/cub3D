@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:46:33 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:12:08 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_map(char **map)
 {
 	int	i;
 
+	i = 0;
 	if(!map)
 		return;
 	while(map[i])

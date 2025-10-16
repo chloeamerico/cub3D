@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 17:26:16 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:43:18 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_empty_line(char *line)
 		return(1);
 	while(line[i])
 	{
-		if(line[i] != ' ' || line[i] != '\t' || line[i] != "\n")
+		if(line[i] != ' ' || line[i] != '\t' || line[i] != '\n')
 			return(0);
 		i++;
 	}
@@ -85,6 +85,7 @@ int divide_map_config(t_game *game)
 	line_map_start = -1;
 	while(game->file_map[i])
 	{
+		
 		if (is_empty_line(game->file_map[i]))
 		{
 			i++;
@@ -92,7 +93,7 @@ int divide_map_config(t_game *game)
 		}
 		if(is_config_line(game->file_map[i]) == 0)		//si c'est une ligne de config
 		{
-			if (/*fonction de laurent*/)				//fonction de laurent pour remplir la struct avec les textures
+			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
 				return (1); 		//erreur
 			nb_config++;
 		}
@@ -101,10 +102,58 @@ int divide_map_config(t_game *game)
 			line_map_start = i;							//c'est la ligne a laquelle commence la map
 			break;
 		}
+		i++;
 	}
 	if(nb_config != 6)									//peut etre a enlever si laurent s'en occupe
 		return(ft_printf("Error : missing config\n"), 1);
 	if(line_map_start != -1)
 		return(ft_printf("Error : map not found\n"));
-	return(extract_map(game, line_map_start));				//a faire
+	return (0);			// a enlever apres
+	// return(extract_map(game, line_map_start));				//a faire
 }
+
+
+
+
+
+
+//extrait les 3 couleurs (rgb) separees pas une virgule
+//converti les str en entiers (atoi)
+//on verifie que chaque couleur est dans la range & qu'il n'y a que 3 valeurs, pas de char invalides
+//stocke dans la struct
+static int	parse_color()
+
+//fonction qui recoit une ligne identifiee precedemment comme une ligne de config
+//identifie si c'est NO, SO... et remplie la structure avec le chemin pour y acceder ou couleur RGB
+//valide les donnees
+int	parse_config_line(char *line, t_game *game)
+{
+	// int	type;		//0 = texture , 1 = rgb
+	int	i;
+
+	i = 0;
+	(void) game;		//a enlever apres
+	// while(line[i])
+	// {
+		// printf("%s\n", line);
+
+		while(line[i] == ' ' || line[i] == '\t')
+			i++;
+		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+		{
+			// type = 0;
+			i += 2;
+			if(parse_texture(line, i, game))
+				return(1);
+		}
+		else if (line[i] == 'F' || line[i] == 'C')
+		{
+			i++;
+			if(parse_color())
+				return(1);
+		}
+			// type = 1;
+	// }
+	return (0);
+}
+
