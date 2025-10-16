@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/16 18:43:18 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:46:50 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,6 @@ int divide_map_config(t_game *game)
 
 
 
-
-
-//extrait les 3 couleurs (rgb) separees pas une virgule
-//converti les str en entiers (atoi)
-//on verifie que chaque couleur est dans la range & qu'il n'y a que 3 valeurs, pas de char invalides
-//stocke dans la struct
-static int	parse_color()
-
 //fonction qui recoit une ligne identifiee precedemment comme une ligne de config
 //identifie si c'est NO, SO... et remplie la structure avec le chemin pour y acceder ou couleur RGB
 //valide les donnees
@@ -149,7 +141,7 @@ int	parse_config_line(char *line, t_game *game)
 		else if (line[i] == 'F' || line[i] == 'C')
 		{
 			i++;
-			if(parse_color())
+			if(parse_color(line, game, i))
 				return(1);
 		}
 			// type = 1;
