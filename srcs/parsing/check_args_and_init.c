@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/16 17:17:17 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:11:16 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,12 @@ static char	**load_file(char *name_map)
 int	init_struct(t_game *game, char **argv)
 {
 	game->file_map = load_file(argv[1]);
+	game->config = malloc(sizeof(t_config));
+    if (!game->config)
+        return (1);
+    game->config->no_texture = NULL;
+    game->config->so_texture = NULL;
+    game->config->we_texture = NULL;
+    game->config->ea_texture = NULL;
 	return(0);
 }
