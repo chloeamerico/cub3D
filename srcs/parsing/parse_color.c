@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 19:00:39 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 19:22:05 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	**extract_color(char *line, int i)
 		j = 0;
 		while(tab_couleur[i][j])
 		{
-			ft_printf("debug : %c\n", tab_couleur[i][j]);
 			if ((tab_couleur[i][j] < '0' || tab_couleur[i][j] > '9')
 				 && (tab_couleur[i][j] != '\n' && tab_couleur[i][j] != ' '))
 				return(ft_printf("Error : RGB color value incorrect\n"), NULL);
@@ -56,25 +55,24 @@ static int	fill_first_struct(t_couleur *couleur, char **tab)
 	
 	i = 0;
 	couleur->R = ft_atoi(tab[0]);
-	if (!couleur->R)
-		return(1);
+	// if (!couleur->R)
+	// 	return(1);
 	couleur->G = ft_atoi(tab[1]);
-	if (!couleur->G)
-		return(1);
+	// if (!couleur->G)
+	// 	return(1);
 	couleur->B = ft_atoi(tab[2]);
-	if (!couleur->B)
-		return(1);
+	// if (!couleur->B)
+	// 	return(1);
 	return (0);
 }
 
-//on verifie que chaque couleur est dans la range & , pas de char invalides
+//on verifie que chaque couleur est dans la range
 static int	check_values(t_couleur *couleur)
 {
 	if(couleur->R < 0 || couleur->R > 255
 		|| couleur->G < 0 || couleur->G > 255
 		|| couleur->B < 0 || couleur->B > 255)
 		return(ft_printf("RGB colors are often in the range [0,255]\n"), 1);
-	
 	return (0);
 }
 
@@ -93,7 +91,7 @@ int	parse_color(char *line, t_game *game, int start)
 	tab = extract_color(line, start);
 	if (!tab)
 		return(1);
-	if(!fill_first_struct(&couleur, tab))
+	if(fill_first_struct(&couleur, tab))
 		return (free_tab(tab), 1);
 	if (check_values(&couleur))
 	free_tab(tab);
