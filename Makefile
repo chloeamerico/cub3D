@@ -14,6 +14,7 @@ SRCS =  main.c \
 	parsing/check_maps_file.c \
 	parsing/create_map.c \
 	parsing/parse_texture.c \
+	parsing/parse_color.c \
 	free.c \
 
 

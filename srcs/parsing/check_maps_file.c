@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/16 18:46:50 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:30:37 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_empty_line(char *line)
 		return(1);
 	while(line[i])
 	{
-		if(line[i] != ' ' || line[i] != '\t' || line[i] != '\n')
+		if(line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
 			return(0);
 		i++;
 	}
@@ -96,6 +96,7 @@ int divide_map_config(t_game *game)
 			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
 				return (1); 		//erreur
 			nb_config++;
+			printf("ligne %s : config no %i\n", game->file_map[i], nb_config);
 		}
 		else
 		{
@@ -141,6 +142,7 @@ int	parse_config_line(char *line, t_game *game)
 		else if (line[i] == 'F' || line[i] == 'C')
 		{
 			i++;
+
 			if(parse_color(line, game, i))
 				return(1);
 		}
