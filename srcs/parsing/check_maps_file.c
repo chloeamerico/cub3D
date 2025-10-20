@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 15:30:25 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:07:59 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ int divide_map_config(t_game *game)
 	}
 	if(nb_config != 6)									//peut etre a enlever si laurent s'en occupe
 		return(ft_printf("Error : missing config\n"), 1);
-	if(line_map_start != -1)
+	if(line_map_start == -1)
 		return(ft_printf("Error : map not found\n"));
-	return (0);			// a enlever apres
-	// return(extract_map(game, line_map_start));				//a faire
+	// return (0);			// a enlever apres
+	return(extract_map(game, line_map_start));				//a faire
 }
 
 
