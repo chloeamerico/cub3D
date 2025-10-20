@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 13:45:55 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 14:05:32 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ int	init_struct(t_game *game, char **argv)
 	game->config = malloc(sizeof(t_config));
 	if (!game->config)
 		return (1);
-	// game->couleur = malloc(sizeof(t_couleur));
-	// if(!game->couleur)
-	// 	return (1);
     game->config->no_texture = NULL;
     game->config->so_texture = NULL;
     game->config->we_texture = NULL;
@@ -117,8 +114,7 @@ int	init_struct(t_game *game, char **argv)
 		game->config->F[i] = 0;
 		i++;
 	}
-	game->couleur->F = 0;
-	game->couleur->C = 0;
+	game->config->type = 0;
 	return(0);
 }
 

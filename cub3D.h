@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 12:20:07 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 14:05:58 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@
 /* STRUCTURES                                                                 */
 /* ************************************************************************** */
 
-typedef struct	t_couleur
-{
-	int	R;
-	int	G;
-	int	B;
-	int F;		//pour savoir si le type F ou C a deja ete detecte
-	int	C;
-}	t_couleur;
+// typedef struct	t_couleur
+// {
+// 	int	R;
+// 	int	G;
+// 	int	B;
+// 	int F;		//pour savoir si le type F ou C a deja ete detecte
+// 	int	C;
+// }	t_couleur;
 
 typedef struct	s_config
 {
@@ -49,6 +49,7 @@ typedef struct	s_config
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
+	int		type;			//au debut 0, 1 si F , 2 si C
 	int		F[3];			//couleur du sol (floor)
 	int		C[3];			//couleur du ciel
 }	t_config;
@@ -58,7 +59,7 @@ typedef struct	s_game
 	char		**file_map;		//tout le fichier .cub transforme en char **
 	char		**map;			//que la map
 	t_config	*config;
-	t_couleur	*couleur;
+	// t_couleur	*couleur;
 }	t_game;
 
 /* ************************************************************************** */
