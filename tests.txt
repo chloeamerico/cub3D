@@ -1,0 +1,11 @@
+ne passent pas encore :
+
+1- map comme celle ci , avec 6 lignes de config mais 5 et 1
+
+NO ./texture/no.xpm
+SO ./texture/so.xpm
+WE ./texture/we.xpm
+EA ./texture/ea.xpm
+EA ./texture/ea.xpm
+
+F 220,100,0

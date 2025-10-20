@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 15:00:18 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 15:21:41 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int find_type(t_game *game, char *line)
 	int	i;
 
 	i = 0;
+	while(line[i] == ' ' || line[i] == '\t')
+		i++;
 	if(line[i] == 'F')
 	{
 		if (game->config->type == 1)
@@ -56,6 +58,7 @@ static int find_type(t_game *game, char *line)
 		if (game->config->type == 2)
 			return(ft_printf("Error2 : Only one F and one C line needed.\n"), 1);
 		game->config->type = 2;
+		printf("%i\n", game->config->type);
 	}
 	return (0);
 }
@@ -95,10 +98,10 @@ static int	fill_first_struct(t_game *game, char **tab)
 	int	i;
 
 	i = 0;
-	if(game->config->type == 'F')
+	if(game->config->type == 1)
 	{
-		// if(game->config->F[0] != 0)
-		// 	return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
+		if(game->config->F[0] != 0)
+			return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
 		i = 0;
 		while(tab[i])
 		{
@@ -108,8 +111,8 @@ static int	fill_first_struct(t_game *game, char **tab)
 	}
 	else
 	{
-		// if(game->config->C[0] != 0)
-		// 	return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
+		if(game->config->C[0] != 0)
+			return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
 		i = 0;
 		while(tab[i])
 		{
@@ -162,8 +165,12 @@ int	parse_color(char *line, t_game *game, int start)
 	
 	// if(init_struct_couleur(&couleur, line))
 	// 	return (1);
+	// printf("apres premiere ligne tab C : %i, %i, %i\n", game->config->C[0], game->config->C[1], game->config->C[2]);
+	// printf("apres premiere ligne tab F : %i, %i, %i\n", game->config->F[0], game->config->F[1], game->config->F[2]);
+	
 	if (find_type(game, line))
 		return (1);
+	printf("type : %i\n", game->config->type);
 	tab = extract_color(line, start);
 	if (!tab)
 		return(free_tab(tab), 1);
@@ -171,8 +178,8 @@ int	parse_color(char *line, t_game *game, int start)
 		return (free_tab(tab), 1);
 	if (check_values(game->config))
 		return(1);
-	// if(fill_sec_struct(&couleur, game, line))
-	// 	return(1);
+	printf("apres premiere ligne tab C : %i, %i, %i\n", game->config->C[0], game->config->C[1], game->config->C[2]);
+	printf("apres premiere ligne tab F : %i, %i, %i\n", game->config->F[0], game->config->F[1], game->config->F[2]);
 	return (0);
 }
 

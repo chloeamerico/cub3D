@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 13:46:36 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 15:30:25 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ int divide_map_config(t_game *game)
 		}
 		if(is_config_line(game->file_map[i]) == 0)		//si c'est une ligne de config
 		{
+			printf("ligne %s", game->file_map[i]);
 			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
 				return (1); 		//erreur
 			nb_config++;
-			printf("ligne %s : config no %i\n", game->file_map[i], nb_config);
 		}
 		else
 		{
@@ -121,20 +121,14 @@ int divide_map_config(t_game *game)
 //valide les donnees
 int	parse_config_line(char *line, t_game *game)
 {
-	// int	type;		//0 = texture , 1 = rgb
 	int	i;
 
 	i = 0;
-	(void) game;		//a enlever apres
-	// while(line[i])
-	// {
-		// printf("%s\n", line);
 
 		while(line[i] == ' ' || line[i] == '\t')
 			i++;
 		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
-			// type = 0;
 			i += 2;
 			if(parse_texture(line, i, game))
 				return(1);
@@ -146,8 +140,6 @@ int	parse_config_line(char *line, t_game *game)
 			if(parse_color(line, game, i))
 				return(1);
 		}
-			// type = 1;
-	// }
 	return (0);
 }
 
