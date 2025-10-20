@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 17:06:52 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/10/20 10:27:26 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ typedef struct	s_game
 	char	**file_map;		//tout le fichier .cub transforme en char **
 	char	**map;			//que la map
 }	t_game;
+
+typedef struct s_config {
+    char *north_texture;
+    char *south_texture;
+    char *west_texture;
+    char *east_texture;
+    int   floor_rgb[3];
+    int   ceiling_rgb[3];
+    int   has_no, has_so, has_we, has_ea;
+    int   has_f,  has_c;
+    int   config_complete;
+} t_config;
 
 /* ************************************************************************** */
 /* PROTO                                                                      */
