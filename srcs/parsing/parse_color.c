@@ -6,17 +6,38 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 19:22:05 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:51:16 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void init_struct_couleur(t_couleur *couleur)
+//fonctionne pour eviter les double A ou F, mais cree des pb valgrind
+static int init_struct_couleur(t_couleur *couleur, char *line)
 {
+	int i;
+
+	i = 0;
+	while(line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if(line[i] == 'F')
+	{
+		// if(couleur->F == 1)
+		// 	return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
+		couleur->F = 1;
+		couleur->C = 0;
+	}
+	if(line[i] == 'C')
+	{
+		// if(couleur->C == 1)
+		// 	return(ft_printf("Error : Only one F and one C line needed.\n"), 1);
+		couleur->C = 1;
+		couleur->F = 0;
+	}
 	couleur->R = 0;
 	couleur->G = 0;
 	couleur->B = 0;
+	return (0);
 }
 
 //fait un split pour extraire les valeurs dans un tab
@@ -52,7 +73,7 @@ static char	**extract_color(char *line, int i)
 static int	fill_first_struct(t_couleur *couleur, char **tab)
 {
 	int	i;
-	
+
 	i = 0;
 	couleur->R = ft_atoi(tab[0]);
 	// if (!couleur->R)
@@ -63,6 +84,7 @@ static int	fill_first_struct(t_couleur *couleur, char **tab)
 	couleur->B = ft_atoi(tab[2]);
 	// if (!couleur->B)
 	// 	return(1);
+	free_tab(tab);
 	return (0);
 }
 
@@ -76,6 +98,15 @@ static int	check_values(t_couleur *couleur)
 	return (0);
 }
 
+// int	fill_sec_struct(t_couleur *couleur, t_game *game, char *str)
+// {
+// 	int	type;		//F = 0 et C = 1
+// 	int i;
+
+// 	i = 0;
+// 	if ()
+// }
+
 //extrait les 3 couleurs (rgb) separees pas une virgule
 //converti les str en entiers (atoi)
 //on verifie que chaque couleur est dans la range & qu'il n'y a que 3 valeurs, pas de char invalides
@@ -87,14 +118,18 @@ int	parse_color(char *line, t_game *game, int start)
 	
 	tab = NULL;
 	(void) game;
-	init_struct_couleur(&couleur);
+	
+	if(init_struct_couleur(&couleur, line))
+		return (1);
 	tab = extract_color(line, start);
 	if (!tab)
-		return(1);
+		return(free_tab(tab), 1);
 	if(fill_first_struct(&couleur, tab))
 		return (free_tab(tab), 1);
 	if (check_values(&couleur))
-	free_tab(tab);
+		return(1);
+	// if(fill_sec_struct(&couleur, game, line))
+	// 	return(1);
 	return (0);
 }
 

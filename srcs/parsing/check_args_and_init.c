@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 17:11:16 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:45:55 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,42 @@ static char	**load_file(char *name_map)
 	return (close(fd), file);
 }
 
+// static void	init_struct_tab(t_game *game)
+// {
+// 	game->config->C[0]	
+// }
+
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)
 {
+	int	i;
+
+	i = 0;
 	game->file_map = load_file(argv[1]);
 	game->config = malloc(sizeof(t_config));
-    if (!game->config)
-        return (1);
+	if (!game->config)
+		return (1);
+	// game->couleur = malloc(sizeof(t_couleur));
+	// if(!game->couleur)
+	// 	return (1);
     game->config->no_texture = NULL;
     game->config->so_texture = NULL;
     game->config->we_texture = NULL;
     game->config->ea_texture = NULL;
+	while(i <= 2)
+	{
+		game->config->C[i] = 0;
+		i++;
+	}
+	i = 0;
+	while(i <= 2)
+	{
+		game->config->F[i] = 0;
+		i++;
+	}
+	game->couleur->F = 0;
+	game->couleur->C = 0;
 	return(0);
 }
+
+
