@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:59:37 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 17:10:37 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:11:14 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	main(int argc, char **argv, char **envp)
 		return(1);
 	if (divide_map_config(&game))
 		return(free_tab(game.file_map), free(game.config), 1);
+	if(parsing_map(&game))
+		return(free_tab(game.file_map), free(game.config), free_tab(game.map), free(game.data), 1);
 	free_tab(game.file_map);
 	free(game.config);
 	free_tab(game.map);
+	free(game.data);
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 16:58:17 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:33:32 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@
 // 	int	C;
 // }	t_couleur;
 
+typedef struct s_data
+{
+	int 	map_width;      // largeur carte
+	int 	map_height;     // hauteur carte
+	int 	player_x;       // position X du joueur
+	int 	player_y;       // position Y du joueur
+	char 	player_dir;    // direction (N/S/E/W)
+}	t_data;
+
 typedef struct	s_config
 {
 	char	*no_texture;
@@ -59,7 +68,7 @@ typedef struct	s_game
 	char		**file_map;		//tout le fichier .cub transforme en char **
 	char		**map;			//que la map
 	t_config	*config;
-	// t_couleur	*couleur;
+	t_data		*data;
 }	t_game;
 
 /* ************************************************************************** */
@@ -70,11 +79,13 @@ int 	check_arg(int argc, char **argv);
 int		init_struct(t_game *game, char **argv);
 int 	divide_map_config(t_game *game);
 int		parse_config_line(char *line, t_game *game);
+int	is_empty_line(char *line);
 // char	*find_texture_path(char *line, int i, char *path);
 int		check_file_exist(char *name);
 int		parse_texture(char *line, int i, t_game *game);
 int		parse_color(char *line, t_game *game, int start);
 int extract_map(t_game *game, int line_map_start);
+int	parsing_map(t_game *game);
 
 void	free_tab(char **tab);
 
