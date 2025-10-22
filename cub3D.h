@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/21 14:33:32 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:53:05 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int		parse_texture(char *line, int i, t_game *game);
 int		parse_color(char *line, t_game *game, int start);
 int extract_map(t_game *game, int line_map_start);
 int	parsing_map(t_game *game);
+int	check_map_close(t_game *game, char **map);
+int	valid_path(t_game *game);
 
 void	free_tab(char **tab);
 

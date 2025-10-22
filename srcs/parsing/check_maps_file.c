@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/21 14:37:18 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:36:13 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int divide_map_config(t_game *game)
 		}
 		if(is_config_line(game->file_map[i]) == 0)		//si c'est une ligne de config
 		{
-			printf("ligne %s", game->file_map[i]);
+			// printf("ligne %s", game->file_map[i]);
 			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
 				return (1); 		//erreur
 			nb_config++;

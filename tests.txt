@@ -16,3 +16,8 @@ ne passent pas encore :
 110000011101010111110  1111110N0111
 11110111 1110101 1011  11010001
 11111111 1111111 1111  11111111
+
+
+
+2- si il y a des lignes a la fins ca s'affiche comme une ligne vide dans la map.
+donc une fois qu'on aura calcule la hauteur max de la map, il faudra check jusqu'a ce point

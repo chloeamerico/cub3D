@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/21 17:32:16 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:55:15 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	check_char(char **map)
 	i = 0;
 	while(map[i])
 	{
-		if(is_empty_line(map[i]))
-			return(ft_printf("Error : empty line in map\n"), 1);
+		// if(is_empty_line(map[i]))
+		// 	return(ft_printf("Error : empty line in map\n"), 1);
 		j = 0;
 		while (map[i][j])
 		{
@@ -81,10 +81,59 @@ static int	check_player(t_game *game)
 	return (0);
 }
 
-//verifie que la map est bien close avec des 1 au debut et a la fin de chaque ligne
-static int	check_map_close(char **game)
+// static void	fill_size_map(t_game *game)
+// {
+// 	int	i;
+// 	// int	height;
+
+// 	i = 0;
+// 	// height = 0;
+// 	while(game->map[i])
+// 	{
+// 		ft_printf("line %i = %s", i, game->map[i]);
+// 		i++;
+// 	}
+// 	// while(is_empty_line(map[i]) == 1)
+// 	// 	i--;
+// 	ft_printf("hauteur map = %i\n", i);
+// }
+
+static void	fill_size_map(t_game *game)
 {
-	
+	int	i;
+	int	j;
+	int width;
+
+	i = 0;
+	width = 0;
+	while(game->map[i])
+		i++;
+	i--;
+	// ft_printf("hauteur map = %i\n", i);
+	while(is_empty_line(game->map[i]) == 1)
+		i--;
+	// ft_printf("hauteur map = %i\n", i);
+	game->data->map_height = i + 1;
+	i = 0;
+	while(game->map[i])
+	{
+		j = 0;
+		while(game->map[i][j])
+		{
+			// ft_printf("char %c est le num %i de la ligne %i \n", game->map[i][j]), j, i;
+			j++;
+		}
+		j--;
+		// ft_printf("char %i est le num %i de la ligne %i \n", ft_atoi(&game->map[i][j]), j, i);
+		while(j >= 0 && (game->map[i][j] == '\n' || game->map[i][j] == ' '))
+			j--;
+		// ft_printf("largeur line %i : %i\n", i, j);
+		if(j + 1 > width)
+			width = j + 1;
+		i++;
+	}
+	ft_printf("largeur max = %i\n", width);
+	game->data->map_width = width;
 }
 
 int	parsing_map(t_game *game)
@@ -96,14 +145,16 @@ int	parsing_map(t_game *game)
 	// 	ft_printf("%s", game->map[i]);
 	// 	i++;
 	// }
+	// fill_size_map(game);
 	if (check_char(game->map))
 		return (1);
 	if(init_data_struct(game))
 		return(1);
 	if(check_player(game))
-		return(1);
-	if (check_map_close(game->map))
-		return (1);
+		return(free(game->data), 1);
+	fill_size_map(game);
+	if(valid_path(game))
+		return(free(game->data), 1);
 	return (0);
 }
 
