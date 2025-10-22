@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/21 17:10:46 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:32:16 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ static int	check_player(t_game *game)
 	return (0);
 }
 
+//verifie que la map est bien close avec des 1 au debut et a la fin de chaque ligne
+static int	check_map_close(char **game)
+{
+	
+}
+
 int	parsing_map(t_game *game)
 {
 	// int	i = 0;							//pour afficher la map
@@ -96,6 +102,8 @@ int	parsing_map(t_game *game)
 		return(1);
 	if(check_player(game))
 		return(1);
+	if (check_map_close(game->map))
+		return (1);
 	return (0);
 }
 
