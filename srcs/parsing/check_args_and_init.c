@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 14:05:32 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:43:17 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_file_exist(char *name)
 	fd = open(name, O_RDONLY);
 	if(fd == -1)
 	{
-		ft_printf("Error : opening the file %s\n", name);
+		ft_printf("Error : opening the file, wrong path %s\n", name);
 		return (1);
 	}
 	close(fd);

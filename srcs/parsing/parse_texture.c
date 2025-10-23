@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:40:29 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/20 15:39:46 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:42:54 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static char	*find_texture_path(char *line, int i, char *path)
 	int start;
 
 	len = 0;
-	while (line[i] == ' ' || line[i] == '\t')
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
+	// if (!line[i])
+	// 	return()
 	start = i;
 	while(line[i] && line[i] != ' ' && line[i] != '\n')
 	{

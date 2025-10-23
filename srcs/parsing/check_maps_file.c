@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/22 16:36:13 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:07:55 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,19 @@ int	is_config_line(char *line)
 	return (1);
 }
 
-//NE SERT PLUS
-// //on verifie si c'est bien le debut de la carte
-// //return (1) si c'est le debut de la map
-// int	is_map_start(char *line)
-// {
-// 	int	i;
+static int check_cub_char_invalid(char *line, int nb_config)
+{
+	int	i;
 
-// 	i = 0;
-// 	while(line[i] == ' ' || line[i] == '\t')
-// 		i++;
-// 	if(line[i] == '1' || line[i] == '0' || line[i] == 'N' ||
-// 		line[i] == 'S' || line[i] == 'E' || line[i] == 'W');
-// 		return(1);
-// 	return(0);
-// }
+	i = 0;
+	while(line[i])
+	{
+		if(nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
+			return(ft_printf("Error : invalid char in .cub file\n"), 1);
+		i++;
+	}
+	return (0);
+}
 
 //fonction qui va diviser le fichier map en 2, d'un cote la config 
 int divide_map_config(t_game *game)
@@ -85,7 +83,6 @@ int divide_map_config(t_game *game)
 	line_map_start = -1;
 	while(game->file_map[i])
 	{
-		
 		if (is_empty_line(game->file_map[i]))
 		{
 			i++;
@@ -98,6 +95,8 @@ int divide_map_config(t_game *game)
 				return (1); 		//erreur
 			nb_config++;
 		}
+		else if (check_cub_char_invalid(game->file_map[i], nb_config))
+			return(1);
 		else
 		{
 			line_map_start = i;							//c'est la ligne a laquelle commence la map

@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/22 16:35:15 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:24:59 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ static char	**extract_color(char *line, int i)
 		{
 			if ((tab_couleur[i][j] < '0' || tab_couleur[i][j] > '9')
 				 && (tab_couleur[i][j] != '\n' && tab_couleur[i][j] != ' '))
-				return(ft_printf("Error : RGB color value incorrect\n"), NULL);
+				return(free_tab(tab_couleur), ft_printf("Error : RGB color value incorrect\n"), NULL);
 			j++;
 		}
 		i++;
 	}
 	if(i != 3)
-		return(ft_printf("Error : color should have type R,G,B\n"), NULL);
+		return(free_tab(tab_couleur), ft_printf("Error : color should have type R,G,B\n"), NULL);
 	return(tab_couleur);
 }
 
@@ -129,16 +129,16 @@ static int	check_values(t_config *config)
 {
 	if(config->type == 1)
 	{
-		if (config->F[0] < 0 || config->F[0] > 255
-		|| config->F[0] < 0 || config->F[0] > 255
-		|| config->F[0] < 0 || config->F[0] > 255)
+		if ((config->F[0] < 0 || config->F[0] > 255)
+		|| (config->F[1] < 0 || config->F[1] > 255)
+		|| (config->F[2] < 0 | config->F[2] > 255))
 			return(ft_printf("RGB colors are often in the range [0,255]\n"), 1);
 	}
 	if(config->type == 2)
-		{
-		if (config->C[0] < 0 || config->C[0] > 255
-		|| config->C[0] < 0 || config->C[0] > 255
-		|| config->C[0] < 0 || config->C[0] > 255)
+	{
+		if ((config->C[0] < 0 || config->C[0] > 255)
+		|| (config->C[1] < 0 || config->C[1] > 255)
+		|| (config->C[2] < 0 || config->C[2] > 255))
 			return(ft_printf("RGB colors are often in the range [0,255]\n"), 1);
 	}
 	return (0);
@@ -173,7 +173,7 @@ int	parse_color(char *line, t_game *game, int start)
 	// printf("type : %i\n", game->config->type);
 	tab = extract_color(line, start);
 	if (!tab)
-		return(free_tab(tab), 1);
+		return(1);
 	if(fill_first_struct(game, tab))
 		return (free_tab(tab), 1);
 	if (check_values(game->config))
