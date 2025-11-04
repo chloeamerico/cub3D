@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:56:08 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/23 14:45:43 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:00:30 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,11 @@ int	valid_path(t_game *game)
 	}
 	// replace_space(game);
 	// i = 0;								//pour afficher la map
-	// while(game->map[i])
+	// while(copy[i])
 	// {
-	// 	ft_printf("%s", game->map[i]);
+	// 	ft_printf("%s", copy[i]);
 	// 	i++;
 	// }
+	// free_tab(copy);
 	return (0);
 }
