@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:59:37 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:55:26 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:17:37 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@ int	main(int argc, char **argv, char **envp)
 		return(1);
 	if(init_struct(&game, argv))
 		return(1);
+	if (divide_map_config(&game))
+		return(free_tab(game.file_map), free(game.config), 1);
+	free_tab(game.file_map);
+	free(game.config);
 	return(0);
 }

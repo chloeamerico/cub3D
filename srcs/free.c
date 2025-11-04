@@ -6,22 +6,23 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 12:46:33 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:34:51 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	free_map(char **map)
+void	free_tab(char **tab)
 {
 	int	i;
 
-	if(!map)
+	i = 0;
+	if(!tab)
 		return;
-	while(map[i])
+	while(tab[i])
 	{
-		free(map[i]);
+		free(tab[i]);
 		i++;
 	}
-	free(map);
+	free(tab);
 }

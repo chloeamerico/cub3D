@@ -10,7 +10,13 @@ OBJ_DIR		=	obj/
 MLX_DIR		=	minilibx-linux/
 
 SRCS =  main.c \
-	parsing/check_args.c \
+	parsing/check_args_and_init.c \
+	parsing/check_maps_file.c \
+	parsing/create_map.c \
+	parsing/parse_texture.c \
+	parsing/parse_color.c \
+	free.c \
+
 
 HEADER = cub3D.h
 

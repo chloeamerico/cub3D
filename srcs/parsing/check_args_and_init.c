@@ -37,14 +37,14 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/15 16:52:17 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:11:16 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 //verifie que ce n'est pas seulement .cub
-static int	check_extension(char *arg)
+static int	check_extension_cub(char *arg)
 {
 	int	len;
 	
@@ -62,7 +62,7 @@ static int	check_extension(char *arg)
 	return (0);
 }
 
-static int	check_file_exist(char *name)
+int	check_file_exist(char *name)
 {
 	int	fd;
 
@@ -83,16 +83,48 @@ int check_arg(int argc, char **argv)
 		ft_printf("Error : number of arguments invalid\n");
 		return (1);
 	}
-	if (check_extension(argv[1]))
+	if (check_extension_cub(argv[1]))
 		return (1);
 	if (check_file_exist(argv[1]))
 		return (1);
 	return (0);
 }
 
+// ouvre le fichier, lit le fichier .cub ligne par ligne, et le transforme en tableau char **
+static char	**load_file(char *name_map)
+{
+	char	**file;
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open(name_map, O_RDONLY);
+	if (fd < 0)
+		return (perror("Error opening file"), NULL);
+	file = malloc(sizeof(char *) * 100);
+	if (!file)
+		return (NULL);
+	line = get_next_line(fd);
+	while (line)
+	{
+		file[i++] = line;
+		line = get_next_line(fd);
+	}
+	file[i] = NULL;
+	return (close(fd), file);
+}
+
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)
 {
-	game->file_map = load_map(argv[1]);
+	game->file_map = load_file(argv[1]);
+	game->config = malloc(sizeof(t_config));
+    if (!game->config)
+        return (1);
+    game->config->no_texture = NULL;
+    game->config->so_texture = NULL;
+    game->config->we_texture = NULL;
+    game->config->ea_texture = NULL;
 	return(0);
 }
