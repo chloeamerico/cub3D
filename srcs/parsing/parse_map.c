@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/22 16:55:15 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/12 15:18:09 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static void	fill_size_map(t_game *game)
 			width = j + 1;
 		i++;
 	}
-	ft_printf("largeur max = %i\n", width);
+	// ft_printf("largeur max = %i\n", width);
 	game->data->map_width = width;
 }
 

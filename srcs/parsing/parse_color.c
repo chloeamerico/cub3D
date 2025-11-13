@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/23 15:24:59 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:58:18 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ static char	**extract_color(char *line, int i)
 		{
 			if ((tab_couleur[i][j] < '0' || tab_couleur[i][j] > '9')
 				 && (tab_couleur[i][j] != '\n' && tab_couleur[i][j] != ' '))
-				return(free_tab(tab_couleur), ft_printf("Error : RGB color value incorrect\n"), NULL);
+				return(free_char_tab(tab_couleur), ft_printf("Error : RGB color value incorrect\n"), NULL);
 			j++;
 		}
 		i++;
 	}
 	if(i != 3)
-		return(free_tab(tab_couleur), ft_printf("Error : color should have type R,G,B\n"), NULL);
+		return(free_char_tab(tab_couleur), ft_printf("Error : color should have type R,G,B\n"), NULL);
 	return(tab_couleur);
 }
 
@@ -120,7 +120,7 @@ static int	fill_first_struct(t_game *game, char **tab)
 			i++;
 		}
 	}
-	free_tab(tab);
+	free_char_tab(tab);
 	return (0);
 }
 
@@ -175,7 +175,7 @@ int	parse_color(char *line, t_game *game, int start)
 	if (!tab)
 		return(1);
 	if(fill_first_struct(game, tab))
-		return (free_tab(tab), 1);
+		return (free_char_tab(tab), 1);
 	if (check_values(game->config))
 		return(1);
 	// printf("apres premiere ligne tab C : %i, %i, %i\n", game->config->C[0], game->config->C[1], game->config->C[2]);

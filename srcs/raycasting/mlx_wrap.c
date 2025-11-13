@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3D.h"
 
 
 //ouvre la co cree la fenetre

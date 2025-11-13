@@ -1,4 +1,4 @@
-// #include "cub3d.h"
+// #include "cub3D.h"
 
 // static void	draw_span(t_game *g, int x, int y0, int y1, uint32_t c)
 // {
@@ -58,7 +58,7 @@
 // 	draw_span(g, x, floor_begin, H - 1, g->floor_col);
 // }
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 static void	draw_span(t_game *g, int x, int y0, int y1, uint32_t c)
 {
@@ -166,7 +166,7 @@ void	draw_column(t_game *g, int x, t_ray *r)
 	int		floor_begin;
 
 	line_h = (int)((double)H / fmax(r->perp, 1e-6));
-	tex_id = TEX_NO;
+	tex_id = choose_tex_id(r);
 	ceil_end = -line_h / 2 + H / 2 - 1;
 	floor_begin = line_h / 2 + H / 2;
 	draw_span(g, x, 0, ceil_end, g->ceil_col);
