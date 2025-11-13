@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3D.h"
 
 static int	load_one(t_game *g, t_tex *t, const char *path)
 {
@@ -68,18 +68,18 @@ uint32_t	get_texel(const t_tex *t, int u, int v)
 	return (*(uint32_t *)p);
 }
 
-// int	choose_tex_id(const t_ray *r)
-// {
-// 	if (r->side == 0)
-// 		return (r->ray_x < 0 ? TEX_WE : TEX_EA);
-// 	return (r->ray_y < 0 ? TEX_NO : TEX_SO);
-// }
-
 int	choose_tex_id(const t_ray *r)
 {
-	(void)r;
-	return TEX_NO;
+	if (r->side == 0)
+		return (r->ray_x < 0 ? TEX_WE : TEX_EA);
+	return (r->ray_y < 0 ? TEX_NO : TEX_SO);
 }
+
+// int	choose_tex_id(const t_ray *r)
+// {
+// 	(void)r;
+// 	return TEX_NO;
+// }
 
 
 static void gen_floor_checker(t_game *g, t_tex *t, int w, int h)

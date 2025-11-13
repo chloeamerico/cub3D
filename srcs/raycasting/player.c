@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3D.h"
 
 static int	blocked(t_game *g, double nx, double ny)
 {
@@ -6,7 +6,7 @@ static int	blocked(t_game *g, double nx, double ny)
 	int my = (int)ny;
 	if (mx < 0 || my < 0 || mx >= g->map_w || my >= g->map_h)
 		return (1);
-	return (g->map[my][mx] == 1);
+	return (g->map_int[my][mx] == 1);
 }
 
 // void	player_update(t_game *g, double dt)

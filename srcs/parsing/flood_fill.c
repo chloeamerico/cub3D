@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:56:08 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/29 13:00:30 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:00:41 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	flood_fill(char **map, int x, int y, t_game *game)
         return (1);
 	 if (x < 0 || x >= (int)ft_strlen(map[y]))		//on check si on est dans les lim de cette ligne
         return (1);
-	ft_printf("on check le char %c en ligne %i et colonne %i\n", map[y][x], y, x);
+	// ft_printf("on check le char %c en ligne %i et colonne %i\n", map[y][x], y, x);
 	if (map[y][x] == '1' || map[y][x] == 'V')
 		return (0);
 	if(map[y][x] == '\n' || map[y][x] == '\0')		//si c'est un espace, on check si il est sur un bord
@@ -144,7 +144,7 @@ int	valid_path(t_game *game)
 	if (!copy)
 		return (ft_printf("Error: failed to copy map\n"), 1);
 	result = flood_fill(copy, game->data->player_x, game->data->player_y, game);
-	free_tab(copy);
+	free_char_tab(copy);
 	if (result == 1)
 	{
 		ft_printf("Error : Map not closed\n");

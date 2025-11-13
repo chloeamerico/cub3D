@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3D.h"
 
 static void	set_steps(t_ray *r, double px, double py)
 {
@@ -59,7 +59,7 @@ void	ray_dda(t_game *g, t_ray *r)
 		}
 		if (r->map_x < 0 || r->map_y < 0 || r->map_x >= g->map_w || r->map_y >= g->map_h)
 			break ;
-		if (g->map[r->map_y][r->map_x] == 1)
+		if (g->map_int[r->map_y][r->map_x] == 1)
 			hit = 1;
 	}
 	if (r->side == 0)
