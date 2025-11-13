@@ -37,7 +37,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 17:11:16 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:43:17 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_file_exist(char *name)
 	fd = open(name, O_RDONLY);
 	if(fd == -1)
 	{
-		ft_printf("Error : opening the file %s\n", name);
+		ft_printf("Error : opening the file, wrong path %s\n", name);
 		return (1);
 	}
 	close(fd);
@@ -115,16 +115,38 @@ static char	**load_file(char *name_map)
 	return (close(fd), file);
 }
 
+// static void	init_struct_tab(t_game *game)
+// {
+// 	game->config->C[0]	
+// }
+
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)
 {
+	int	i;
+
+	i = 0;
 	game->file_map = load_file(argv[1]);
 	game->config = malloc(sizeof(t_config));
-    if (!game->config)
-        return (1);
+	if (!game->config)
+		return (1);
     game->config->no_texture = NULL;
     game->config->so_texture = NULL;
     game->config->we_texture = NULL;
     game->config->ea_texture = NULL;
+	while(i <= 2)
+	{
+		game->config->C[i] = 0;
+		i++;
+	}
+	i = 0;
+	while(i <= 2)
+	{
+		game->config->F[i] = 0;
+		i++;
+	}
+	game->config->type = 0;
 	return(0);
 }
+
+

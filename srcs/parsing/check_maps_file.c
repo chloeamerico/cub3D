@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 16:30:37 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:07:55 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,19 @@ int	is_config_line(char *line)
 	return (1);
 }
 
-//NE SERT PLUS
-// //on verifie si c'est bien le debut de la carte
-// //return (1) si c'est le debut de la map
-// int	is_map_start(char *line)
-// {
-// 	int	i;
+static int check_cub_char_invalid(char *line, int nb_config)
+{
+	int	i;
 
-// 	i = 0;
-// 	while(line[i] == ' ' || line[i] == '\t')
-// 		i++;
-// 	if(line[i] == '1' || line[i] == '0' || line[i] == 'N' ||
-// 		line[i] == 'S' || line[i] == 'E' || line[i] == 'W');
-// 		return(1);
-// 	return(0);
-// }
+	i = 0;
+	while(line[i])
+	{
+		if(nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
+			return(ft_printf("Error : invalid char in .cub file\n"), 1);
+		i++;
+	}
+	return (0);
+}
 
 //fonction qui va diviser le fichier map en 2, d'un cote la config 
 int divide_map_config(t_game *game)
@@ -85,7 +83,6 @@ int divide_map_config(t_game *game)
 	line_map_start = -1;
 	while(game->file_map[i])
 	{
-		
 		if (is_empty_line(game->file_map[i]))
 		{
 			i++;
@@ -93,11 +90,13 @@ int divide_map_config(t_game *game)
 		}
 		if(is_config_line(game->file_map[i]) == 0)		//si c'est une ligne de config
 		{
+			// printf("ligne %s", game->file_map[i]);
 			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
 				return (1); 		//erreur
 			nb_config++;
-			printf("ligne %s : config no %i\n", game->file_map[i], nb_config);
 		}
+		else if (check_cub_char_invalid(game->file_map[i], nb_config))
+			return(1);
 		else
 		{
 			line_map_start = i;							//c'est la ligne a laquelle commence la map
@@ -107,10 +106,10 @@ int divide_map_config(t_game *game)
 	}
 	if(nb_config != 6)									//peut etre a enlever si laurent s'en occupe
 		return(ft_printf("Error : missing config\n"), 1);
-	if(line_map_start != -1)
+	if(line_map_start == -1)
 		return(ft_printf("Error : map not found\n"));
-	return (0);			// a enlever apres
-	// return(extract_map(game, line_map_start));				//a faire
+	// return (0);			// a enlever apres
+	return(extract_map(game, line_map_start));				//a faire
 }
 
 
@@ -121,20 +120,14 @@ int divide_map_config(t_game *game)
 //valide les donnees
 int	parse_config_line(char *line, t_game *game)
 {
-	// int	type;		//0 = texture , 1 = rgb
 	int	i;
 
 	i = 0;
-	(void) game;		//a enlever apres
-	// while(line[i])
-	// {
-		// printf("%s\n", line);
 
 		while(line[i] == ' ' || line[i] == '\t')
 			i++;
 		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
-			// type = 0;
 			i += 2;
 			if(parse_texture(line, i, game))
 				return(1);
@@ -146,8 +139,6 @@ int	parse_config_line(char *line, t_game *game)
 			if(parse_color(line, game, i))
 				return(1);
 		}
-			// type = 1;
-	// }
 	return (0);
 }
 

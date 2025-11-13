@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:40:29 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/17 15:51:02 by camerico         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:42:54 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static char	*find_texture_path(char *line, int i, char *path)
 	int start;
 
 	len = 0;
-	while (line[i] == ' ' || line[i] == '\t')
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
+	// if (!line[i])
+	// 	return()
 	start = i;
 	while(line[i] && line[i] != ' ' && line[i] != '\n')
 	{
@@ -54,21 +56,33 @@ static char	*find_texture_path(char *line, int i, char *path)
 	return (path);
 }
 
-static void	add_struct(t_game *game, char *path, char *line)
+static int	add_struct(t_game *game, char *path, char *line, int i)
 {
-	int i;
-
-	i = 0;
-	while(line[i] == ' ' || line[i] == '\t')
-		i++;
 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	{
+		if (game->config->no_texture != NULL)
+			return(ft_printf("Error : double North texture detected\n"), 1);
 		game->config->no_texture = path;
+	}
 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	{
+		if (game->config->so_texture != NULL)
+			return(ft_printf("Error : double South texture detected\n"), 1);
 		game->config->so_texture = path;
+	}	
 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+	{
+		if (game->config->we_texture != NULL)
+			return(ft_printf("Error : double West texture detected\n"), 1);
 		game->config->we_texture = path;
+	}
 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+	{
+		if (game->config->ea_texture != NULL)
+			return(ft_printf("Error : double East texture detected\n"), 1);
 		game->config->ea_texture = path;
+	}
+	return (0);
 }
 
 //extrait le chemin vers la texture
@@ -78,8 +92,9 @@ static void	add_struct(t_game *game, char *path, char *line)
 int	parse_texture(char *line, int i, t_game *game)
 {
 	char *path;
-
-	(void) game;		//a enlever apres
+	int	start;
+	
+	start = 0;
 	path = NULL;
 	path = find_texture_path(line, i, path);		//on extrait le chemin vers la texture
 	if(!path)
@@ -88,7 +103,10 @@ int	parse_texture(char *line, int i, t_game *game)
 		return(free(path), 1);
 	if(check_extension_xpm(path))
 		return(free(path), 1);
-	add_struct(game, path, line);
+	while(line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (add_struct(game, path, line, start))
+		return(free(path), 1);
 	free(path);
 	return (0);
 }
