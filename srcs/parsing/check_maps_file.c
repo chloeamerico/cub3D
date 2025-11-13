@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_maps_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/05 15:36:29 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:18:27 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	is_empty_line(char *line)
 	int	i;
 
 	i = 0;
-	if(!line)
-		return(1);
-	while(line[i])
+	if (!line)
+		return (1);
+	while (line[i])
 	{
-		if(line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
-			return(0);
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 //verifie si c'est une ligne de config ou la map a extraire
@@ -38,107 +38,100 @@ int	is_config_line(char *line)
 	int	i;
 
 	i = 0;
-	if(!line)
+	if (!line)
 		return (1);
-	while (line[i] == ' ' || line[i] == '\t')			//pour skip les expaces et tab au deb
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		return(0);
+		return (0);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		return(0);
+		return (0);
 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-		return(0);
+		return (0);
 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-		return(0);
+		return (0);
 	else if (line[i] == 'F' && line[i + 1] == ' ')
-		return(0);
+		return (0);
 	else if (line[i] == 'C' && line[i + 1] == ' ')
-		return(0);
+		return (0);
 	return (1);
 }
 
-static int check_cub_char_invalid(char *line, int nb_config)
+static int	check_cub_char_invalid(char *line, int nb_config)
 {
 	int	i;
 
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
-		if(nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
-			return(ft_printf("Error : invalid char in .cub file\n"), 1);
+		if (nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
+			return (ft_printf("Error : invalid char in .cub file\n"), 1);
 		i++;
 	}
 	return (0);
 }
 
 //fonction qui va diviser le fichier map en 2, d'un cote la config 
-int divide_map_config(t_game *game)
+int	divide_map_config(t_game *game)
 {
 	int	i;
-	int	nb_config;		//va compter le nb de config, il en faut 6 au total
+	int	nb_config;
 	int	line_map_start;
 
 	i = 0;
 	nb_config = 0;
 	line_map_start = -1;
-	while(game->file_map[i])
+	while (game->file_map[i])
 	{
 		if (is_empty_line(game->file_map[i]))
 		{
 			i++;
-			continue;									//on recommence la boucle while sans passer les autres boucles
+			continue ;
 		}
-		if(is_config_line(game->file_map[i]) == 0)		//si c'est une ligne de config
+		if (is_config_line(game->file_map[i]) == 0)
 		{
-			// printf("ligne %s", game->file_map[i]);
-			if (parse_config_line(game->file_map[i], game))				//fonction pour remplir la struct avec les textures
-				return (1); 		//erreur
+			if (parse_config_line(game->file_map[i], game))
+				return (1);
 			nb_config++;
 		}
 		else if (check_cub_char_invalid(game->file_map[i], nb_config))
-			return(1);
+			return (1);
 		else
 		{
-			line_map_start = i;							//c'est la ligne a laquelle commence la map
-			break;
+			line_map_start = i;
+			break ;
 		}
 		i++;
 	}
-	if(nb_config != 6)									//peut etre a enlever si laurent s'en occupe
-		return(ft_printf("Error : missing config\n"), 1);
-	if(line_map_start == -1)
-		return(ft_printf("Error : map not found\n"));
-	// return (0);			// a enlever apres
-	return(extract_map(game, line_map_start));				//a faire
+	if (nb_config != 6)
+		return (ft_printf("Error : missing config\n"), 1);
+	if (line_map_start == -1)
+		return (ft_printf("Error : map not found\n"));
+	return (extract_map(game, line_map_start));
 }
 
-
-
-
-//fonction qui recoit une ligne identifiee precedemment comme une ligne de config
-//identifie si c'est NO, SO... et remplie la structure avec le chemin pour y acceder ou couleur RGB
+//fonction qui recoit une ligne identifiee precedemment comme une line de config
+//identifie si c'est NO, SO... 
+//et remplie la structure avec le chemin pour y acceder ou couleur RGB
 //valide les donnees
 int	parse_config_line(char *line, t_game *game)
 {
 	int	i;
 
 	i = 0;
-
-		while(line[i] == ' ' || line[i] == '\t')
-			i++;
-		if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
-		{
-			i += 2;
-			if(parse_texture(line, i, game))
-				return(1);
-		}
-		else if (line[i] == 'F' || line[i] == 'C')
-		{
-			i++;
-
-			if(parse_color(line, game, i))
-				return(1);
-		}
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+	{
+		i += 2;
+		if (parse_texture(line, i, game))
+			return (1);
+	}
+	else if (line[i] == 'F' || line[i] == 'C')
+	{
+		i++;
+		if (parse_color(line, game, i))
+			return (1);
+	}
 	return (0);
 }
-
