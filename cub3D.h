@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:54:42 by camerico          #+#    #+#             */
-/*   Updated: 2025/10/22 16:53:05 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:41:50 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,23 @@
 /* STRUCTURES                                                                 */
 /* ************************************************************************** */
 
-// typedef struct	t_couleur
-// {
-// 	int	R;
-// 	int	G;
-// 	int	B;
-// 	int F;		//pour savoir si le type F ou C a deja ete detecte
-// 	int	C;
-// }	t_couleur;
+typedef struct s_minimap
+{
+	int width;        // largeur  minimap (en pixels)
+    int height;       // hauteur  minimap (en pixels)
+    int case_size;    // taille d'une case de la carte (en pixels) --> + c'est grand, + la minimap prendra de place a l'ecran
+    int location_x;     // coordonees X du coint en haut a gauche de la minimap
+    int location_y;     // coordonees Y du coint en haut a gauche de la minimap
+    // int scale;        // facteur echelle pour afficher la minimap
+}	t_minimap;
+
+typedef struct s_data_mini
+{
+	void	*img;
+	char	*address;
+	int		bpp;
+	int		line_len;
+}	t_data_mini;
 
 typedef struct s_data
 {
@@ -69,6 +78,7 @@ typedef struct	s_game
 	char		**map;			//que la map
 	t_config	*config;
 	t_data		*data;
+	t_minimap	*mini;
 }	t_game;
 
 /* ************************************************************************** */

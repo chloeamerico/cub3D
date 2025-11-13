@@ -275,3 +275,4 @@ Le 0 en position (4, 1) est adjacent à un espace, donc invalide.
 
 Vérifier qu'il n'y a pas de lignes vides au milieu de la carte. Retourner "Error\n" avec un message explicite si une validation échoue.
 ​​
+faire attention que les dimensions de la minimap me depasse pas celles de la fenetre
