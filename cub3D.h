@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:52:15 by lleichtn          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/11/14 14:56:39 by lleichtn         ###   ########.fr       */
+=======
+/*   Updated: 2025/11/14 15:37:00 by camerico         ###   ########.fr       */
+>>>>>>> origin
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,20 +144,24 @@ typedef struct s_game
 /* PROTOTYPES PARSING */
 /* ************************************************************************** */
 
-int			check_arg(int argc, char **argv);
-int			init_struct(t_game *game, char **argv);
-int			divide_map_config(t_game *game);
-int			parse_config_line(char *line, t_game *game);
-int			is_empty_line(char *line);
-int			check_file_exist(char *name);
-int			parse_texture(char *line, int i, t_game *game);
-int			parse_color(char *line, t_game *game, int start);
-int			extract_map(t_game *game, int line_map_start);
-int			parsing_map(t_game *game);
-int			check_map_close(t_game *game, char **map);
-int			valid_path(t_game *game);
-void		free_char_tab(char **tab);
-void		free_int_tab(int **tab, int height);
+int     check_arg(int argc, char **argv);
+int     init_struct(t_game *game, char **argv);
+int     divide_map_config(t_game *game);
+int     parse_config_line(char *line, t_game *game);
+int     is_empty_line(char *line);
+int     check_file_exist(char *name);
+int     parse_texture(char *line, int i, t_game *game);
+int     parse_color(char *line, t_game *game, int start);
+int     extract_map(t_game *game, int line_map_start);
+int     parsing_map(t_game *game);
+int     check_map_close(t_game *game, char **map);
+int     valid_path(t_game *game);
+int     check_cub_char_invalid(char *line, int nb_config);
+int     implement_config_line(t_game *game, int *nb_config, int i);
+void    free_char_tab(char **tab);
+void    free_int_tab(int **tab, int height);
+void	err1(char **tab_couleur);
+void	err2(char **tab_couleur);
 
 /* ************************************************************************** */
 /* PROTOTYPES RENDU & MLX */

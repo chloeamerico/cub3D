@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:40:29 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 18:04:05 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:48:28 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,22 @@ static int	add_struct(t_game *game, char *path, char *line, int i)
 // l'ajoute a la structure
 int	parse_texture(char *line, int i, t_game *game)
 {
-	char *path;
-	int	start;
-	
+	char	*path;
+	int		start;
+
 	start = 0;
 	path = NULL;
-	path = find_texture_path(line, i, path);		//on extrait le chemin vers la texture
-	if(!path)
-		return(1);
+	path = find_texture_path(line, i, path);
+	if (!path)
+		return (1);
 	if (check_file_exist(path))
-		return(free(path), 1);
-	if(check_extension_xpm(path))
-		return(free(path), 1);
-	while(line[i] == ' ' || line[i] == '\t')
+		return (free(path), 1);
+	if (check_extension_xpm(path))
+		return (free(path), 1);
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (add_struct(game, path, line, start))
-		return(free(path), 1);
+		return (free(path), 1);
 	free(path);
 	return (0);
 }

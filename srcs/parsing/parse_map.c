@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 18:03:04 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:04:13 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	check_char(char **map)
 	i = 0;
 	while (map[i])
 	{
-		// if(is_empty_line(map[i]))
-		// 	return(ft_printf("Error : empty line in map\n"), 1);
+		if (is_empty_line(map[i]))
+			return (ft_printf("Error : empty line in map\n"), 1);
 		j = 0;
 		while (map[i][j])
 		{
@@ -103,6 +103,7 @@ static int	check_player(t_game *game)
 // 	ft_printf("hauteur map = %i\n", i);
 // }
 
+//peut etre que la fonciton bug
 static void	fill_size_map(t_game *game)
 {
 	int	i;
@@ -113,9 +114,8 @@ static void	fill_size_map(t_game *game)
 	width = 0;
 	while (game->map[i])
 		i++;
-	i--;
-	while (is_empty_line(game->map[i]) == 1)
-		i--;
+	while (--i >= 0 && is_empty_line(game->map[i]) == 1)
+		continue ;
 	game->data->map_height = i + 1;
 	i = 0;
 	while (game->map[i])
