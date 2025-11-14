@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 17:24:38 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:49:03 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,19 @@ void	free_char_tab(char **tab)
 		i++;
 	}
 	free (tab);
+}
+
+void	free_int_tab(int **tab, int h)
+{
+	int	i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (i < h)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

@@ -78,8 +78,8 @@ raycasting/player.c \
 raycasting/raycast.c \
 raycasting/render.c \
 raycasting/minimap.c \
-raycasting/textures.c
-# parsing/free.c \
+raycasting/textures3.c \
+parsing/free.c \
 
 # Paths complets
 SRCS_FULL = $(addprefix $(SRC_DIR)/, $(SRCS))

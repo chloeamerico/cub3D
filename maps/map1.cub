@@ -1,6 +1,6 @@
-NO ./texture/no.xpm
-SO ./texture/so.xpm
-WE ./texture/we.xpm
+NO ./texture/nord.xpm
+SO ./texture/sud.xpm
+WE ./texture/ouest.xpm
 EA ./texture/ea.xpm
 
 

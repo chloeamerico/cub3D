@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 14:16:28 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:37:44 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3D.h"
-#include <stdlib.h>
-#include <string.h>
-#include <sys/time.h>
-#include <math.h>
 
 /* externs de ton projet */
 extern int   init_mlx(t_game *g);
@@ -172,3 +167,4 @@ int main(int ac, char **av, char **envp)
     free_all_local(&g);
     return 0;
 }
+
