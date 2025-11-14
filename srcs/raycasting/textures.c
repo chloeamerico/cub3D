@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 14:12:55 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 14:17:13 by lleichtn         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3D.h"
 
 static int	load_one(t_game *g, t_tex *t, const char *path)
@@ -25,26 +13,24 @@ static int	load_one(t_game *g, t_tex *t, const char *path)
 	return (1);
 }
 
-static void	fill_checker_row(t_tex *t, int y, int w)
+static void	put_checker_px(t_tex *t, int x, int y)
 {
-	int		x;
-	char	*dst;
+	uint32_t	*px;
+	int			cell;
 
-	x = 0;
-	while (x < w)
-	{
-		dst = t->i.addr + y * t->i.line_len
-			+ x * (t->i.bpp / 8);
-		if (((x / 8) + (y / 8)) % 2)
-			*(uint32_t *)dst = 0xFF5555;
-		else
-			*(uint32_t *)dst = 0xAAAAAA;
-		x++;
-	}
+	px = (uint32_t *)(t->i.addr
+			+ y * t->i.line_len
+			+ x * (t->i.bpp / 8));
+	cell = (x / 8) + (y / 8);
+	if (cell % 2 == 1)
+		*px = 0xFF5555;
+	else
+		*px = 0xAAAAAA;
 }
 
 static void	gen_checker(t_game *g, t_tex *t, int w, int h)
 {
+	int	x;
 	int	y;
 
 	(void)g;
@@ -56,7 +42,12 @@ static void	gen_checker(t_game *g, t_tex *t, int w, int h)
 	y = 0;
 	while (y < h)
 	{
-		fill_checker_row(t, y, w);
+		x = 0;
+		while (x < w)
+		{
+			put_checker_px(t, x, y);
+			x++;
+		}
 		y++;
 	}
 }
@@ -99,7 +90,9 @@ uint32_t	get_texel(const t_tex *t, int u, int v)
 		u = t->i.w - 1;
 	if (v >= t->i.h)
 		v = t->i.h - 1;
-	p = t->i.addr + v * t->i.line_len + u * (t->i.bpp / 8);
+	p = t->i.addr
+		+ v * t->i.line_len
+		+ u * (t->i.bpp / 8);
 	return (*(uint32_t *)p);
 }
 
@@ -116,26 +109,24 @@ int	choose_tex_id(const t_ray *r)
 	return (TEX_SO);
 }
 
-static void	fill_floor_row(t_tex *t, int y, int w)
+static void	put_floor_px(t_tex *t, int x, int y)
 {
-	int		x;
-	char	*dst;
+	uint32_t	*px;
+	int			cell;
 
-	x = 0;
-	while (x < w)
-	{
-		dst = t->i.addr + y * t->i.line_len
-			+ x * (t->i.bpp / 8);
-		if (((x / 8) + (y / 8)) % 2)
-			*(uint32_t *)dst = 0x3A6B2E;
-		else
-			*(uint32_t *)dst = 0x2A4D1A;
-		x++;
-	}
+	px = (uint32_t *)(t->i.addr
+			+ y * t->i.line_len
+			+ x * (t->i.bpp / 8));
+	cell = (x / 8) + (y / 8);
+	if (cell % 2 == 1)
+		*px = 0x3A6B2E;
+	else
+		*px = 0x2A4D1A;
 }
 
 static void	gen_floor_checker(t_game *g, t_tex *t, int w, int h)
 {
+	int	x;
 	int	y;
 
 	(void)g;
@@ -147,7 +138,12 @@ static void	gen_floor_checker(t_game *g, t_tex *t, int w, int h)
 	y = 0;
 	while (y < h)
 	{
-		fill_floor_row(t, y, w);
+		x = 0;
+		while (x < w)
+		{
+			put_floor_px(t, x, y);
+			x++;
+		}
 		y++;
 	}
 }

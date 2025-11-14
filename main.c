@@ -5,16 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 18:17:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 15:33:18 by lleichtn         ###   ########.fr       */
+/*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
+/*   Updated: 2025/11/14 15:52:22 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <string.h>
 #include <sys/time.h>
-
-int	load_textures(t_game *g, t_pair ns, t_pair we);
 
 static uint32_t	clr(int v)
 {
@@ -62,24 +60,24 @@ static void	fill_int_line(int *dst, char *src, int w)
 	}
 }
 
-static int	**map_to_int(char **map, int w, int h)
+static int	**map_char_to_int(char **map, int w, int h)
 {
-	int	**out;
+	int	**m;
 	int	y;
 
-	out = malloc(sizeof(int *) * h);
-	if (!out)
+	m = malloc(sizeof(int *) * h);
+	if (!m)
 		return (NULL);
 	y = 0;
 	while (y < h)
 	{
-		out[y] = malloc(sizeof(int) * w);
-		if (!out[y])
+		m[y] = malloc(sizeof(int) * w);
+		if (!m[y])
 			return (NULL);
-		fill_int_line(out[y], map[y], w);
+		fill_int_line(m[y], map[y], w);
 		y++;
 	}
-	return (out);
+	return (m);
 }
 
 static void	set_dir(t_game *g, char c)
@@ -131,7 +129,8 @@ static void	find_player(t_game *g)
 			{
 				g->px = x + 0.5;
 				g->py = y + 0.5;
-				return (set_dir(g, c));
+				set_dir(g, c);
+				return ;
 			}
 			x++;
 		}
@@ -193,10 +192,10 @@ static int	load_all_textures(t_game *g)
 	t_pair	ns;
 	t_pair	we;
 
-	ns.a = g->config->no_texture;
-	ns.b = g->config->so_texture;
-	we.a = g->config->we_texture;
-	we.b = g->config->ea_texture;
+	ns.a = "texture/nord.xpm";
+	ns.b = "texture/sud.xpm";
+	we.a = "texture/ouest.xpm";
+	we.b = "texture/est.xpm";
 	if (!load_textures(g, ns, we))
 		return (0);
 	load_floor_texture(g, "texture/grass.xpm");
@@ -214,12 +213,12 @@ int	main(int ac, char **av, char **envp)
 		return (free_all_local(&g), 1);
 	g.map_w = g.data->map_width;
 	g.map_h = g.data->map_height;
-	g.map_int = map_to_int(g.map, g.map_w, g.map_h);
+	g.map_int = map_char_to_int(g.map, g.map_w, g.map_h);
 	if (!g.map_int)
 		return (free_all_local(&g), 1);
 	find_player(&g);
-	g.ceil_col = argb(255, 135, 206, 235);
-	g.floor_col = argb(255, 68, 68, 68);
+	g.ceil_col = argb(255, 0x87, 0xCE, 0xEB);
+	g.floor_col = argb(255, 0x44, 0x44, 0x44);
 	if (!init_mlx(&g) || !frame_new(&g, W, H))
 		return (free_all_local(&g), 1);
 	if (!load_all_textures(&g))

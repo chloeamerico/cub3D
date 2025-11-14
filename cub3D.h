@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:52:15 by lleichtn          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/11/14 14:56:39 by lleichtn         ###   ########.fr       */
-=======
-/*   Updated: 2025/11/14 15:37:00 by camerico         ###   ########.fr       */
->>>>>>> origin
+/*   Updated: 2025/11/14 15:53:10 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +190,7 @@ void		center_mouse(t_game *g);
 int			load_floor_texture(t_game *g, const char *path);
 void		render_frame(t_game *g);
 void		minimap_draw(t_game *g);
-// int         load_textures(t_game *g, t_pair ns, t_pair we);
+int         load_textures(t_game *g, t_pair ns, t_pair we);
 void	free_int_tab(int **tab, int h);
 
 #endif

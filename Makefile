@@ -78,7 +78,7 @@ raycasting/player.c \
 raycasting/raycast.c \
 raycasting/render.c \
 raycasting/minimap.c \
-raycasting/textures3.c \
+raycasting/textures.c \
 parsing/free.c \
 
 # Paths complets
