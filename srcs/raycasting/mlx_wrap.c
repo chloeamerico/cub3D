@@ -1,5 +1,16 @@
-#include "cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_wrap.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 11:40:35 by lleichtn          #+#    #+#             */
+/*   Updated: 2025/11/14 11:41:09 by lleichtn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3D.h"
 
 //ouvre la co cree la fenetre
 int	init_mlx(t_game *g)
@@ -14,8 +25,9 @@ int	init_mlx(t_game *g)
 //cree l image
 int	frame_new(t_game *g, int w, int h)
 {
-	t_img *f = &g->frame;
+	t_img	*f;
 
+	f = &g->frame;
 	f->img = mlx_new_image(g->mlx, w, h);
 	if (!f->img)
 		return (0);
@@ -35,7 +47,7 @@ void	frame_destroy(t_game *g)
 //met un pixel dans t img
 void	put_px(t_img *i, int x, int y, uint32_t c)
 {
-	char *p;
+	char	*p;
 
 	if (x < 0 || y < 0 || x >= i->w || y >= i->h)
 		return ;

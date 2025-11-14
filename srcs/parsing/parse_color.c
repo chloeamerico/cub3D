@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 15:33:32 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:36:13 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,15 @@ static int	fill_first_struct(t_game *game, char **tab)
 	i = 0;
 	if (game->config->type == 1)
 	{
-		if (game->config->F[0] != 0)
+		if (game->config->f[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config->F;
+		f_or_c = game->config->f;
 	}
 	else
 	{
-		if (game->config->C[0] != 0)
+		if (game->config->c[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config->C;
+		f_or_c = game->config->c;
 	}
 	i = 0;
 	while (tab[i])
@@ -129,16 +129,16 @@ static int	check_values(t_config *config)
 {
 	if (config->type == 1)
 	{
-		if ((config->F[0] < 0 || config->F[0] > 255)
-			|| (config->F[1] < 0 || config->F[1] > 255)
-			|| (config->F[2] < 0 | config->F[2] > 255))
+		if ((config->f[0] < 0 || config->f[0] > 255)
+			|| (config->f[1] < 0 || config->f[1] > 255)
+			|| (config->f[2] < 0 | config->f[2] > 255))
 			return (ft_printf("RGB colors are often in the range [0,255]\n"), 1);
 	}
 	if (config->type == 2)
 	{
-		if ((config->C[0] < 0 || config->C[0] > 255)
-			|| (config->C[1] < 0 || config->C[1] > 255)
-			|| (config->C[2] < 0 || config->C[2] > 255))
+		if ((config->c[0] < 0 || config->c[0] > 255)
+			|| (config->c[1] < 0 || config->c[1] > 255)
+			|| (config->c[2] < 0 || config->c[2] > 255))
 			return (ft_printf("RGB colors are often in the range [0,255]\n"), 1);
 	}
 	return (0);
