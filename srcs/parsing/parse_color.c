@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 17:48:11 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:33:32 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,6 @@ static int	find_type(t_game *game, char *line)
 		game->config->type = 2;
 	}
 	return (0);
-}
-
-void	err1(char **tab_couleur)
-{
-	free_char_tab(tab_couleur);
-	ft_printf("Error : RGB color value incorrect\n");
-}
-
-void	err2(char **tab_couleur)
-{
-	free_char_tab(tab_couleur);
-	ft_printf("Error : color should have type R,G,B\n");
 }
 
 //fait un split pour extraire les valeurs dans un tab
@@ -76,32 +64,61 @@ static char	**extract_color(char *line, int i)
 	return (tab_couleur);
 }
 
+//AVANT DE REDUIRE
+// static int	fill_first_struct(t_game *game, char **tab)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (game->config->type == 1)
+// 	{
+// 		if (game->config->F[0] != 0)
+// 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
+// 		i = 0;
+// 		while (tab[i])
+// 		{
+// 			game->config->F[i] = ft_atoi(tab[i]);
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (game->config->C[0] != 0)
+// 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
+// 		i = 0;
+// 		while (tab[i])
+// 		{
+// 			game->config->C[i] = ft_atoi(tab[i]);
+// 			i++;
+// 		}
+// 	}
+// 	free_char_tab(tab);
+// 	return (0);
+// }
+
 static int	fill_first_struct(t_game *game, char **tab)
 {
 	int	i;
+	int	*f_or_c;
 
 	i = 0;
 	if (game->config->type == 1)
 	{
 		if (game->config->F[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		i = 0;
-		while (tab[i])
-		{
-			game->config->F[i] = ft_atoi(tab[i]);
-			i++;
-		}
+		f_or_c = game->config->F;
 	}
 	else
 	{
 		if (game->config->C[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		i = 0;
-		while (tab[i])
-		{
-			game->config->C[i] = ft_atoi(tab[i]);
-			i++;
-		}
+		f_or_c = game->config->C;
+	}
+	i = 0;
+	while (tab[i])
+	{
+		f_or_c[i] = ft_atoi(tab[i]);
+		i++;
 	}
 	free_char_tab(tab);
 	return (0);

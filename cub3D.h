@@ -141,9 +141,12 @@ int     extract_map(t_game *game, int line_map_start);
 int     parsing_map(t_game *game);
 int     check_map_close(t_game *game, char **map);
 int     valid_path(t_game *game);
-void free_char_tab(char **tab);
-void free_int_tab(int **tab, int height);
-
+int     check_cub_char_invalid(char *line, int nb_config);
+int     implement_config_line(t_game *game, int *nb_config, int i);
+void    free_char_tab(char **tab);
+void    free_int_tab(int **tab, int height);
+void	err1(char **tab_couleur);
+void	err2(char **tab_couleur);
 
 /* ************************************************************************** */
 /* PROTOTYPES RENDU & MLX */

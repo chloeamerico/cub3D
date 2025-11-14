@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 17:18:27 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:30:41 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,11 @@ int	is_config_line(char *line)
 	return (1);
 }
 
-static int	check_cub_char_invalid(char *line, int nb_config)
+static int	find_map_start(t_game *game, int *nb_config)
 {
 	int	i;
 
 	i = 0;
-	while (line[i])
-	{
-		if (nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
-			return (ft_printf("Error : invalid char in .cub file\n"), 1);
-		i++;
-	}
-	return (0);
-}
-
-//fonction qui va diviser le fichier map en 2, d'un cote la config 
-int	divide_map_config(t_game *game)
-{
-	int	i;
-	int	nb_config;
-	int	line_map_start;
-
-	i = 0;
-	nb_config = 0;
-	line_map_start = -1;
 	while (game->file_map[i])
 	{
 		if (is_empty_line(game->file_map[i]))
@@ -90,25 +71,74 @@ int	divide_map_config(t_game *game)
 		}
 		if (is_config_line(game->file_map[i]) == 0)
 		{
-			if (parse_config_line(game->file_map[i], game))
-				return (1);
-			nb_config++;
+			if (implement_config_line(game, nb_config, i))
+				return (-2);
 		}
-		else if (check_cub_char_invalid(game->file_map[i], nb_config))
-			return (1);
+		else if (check_cub_char_invalid(game->file_map[i], *nb_config))
+			return (-2);
 		else
-		{
-			line_map_start = i;
-			break ;
-		}
+			return (i);
 		i++;
 	}
-	if (nb_config != 6)
+	return (-1);
+}
+
+//fonction qui va diviser le fichier map en 2, d'un cote la config 
+int	divide_map_config(t_game *game)
+{
+	int	nb_config;
+	int	line_map_start;
+
+	nb_config = 0;
+	line_map_start = find_map_start(game, &nb_config);
+	if (nb_config != 6 && line_map_start == -1)
 		return (ft_printf("Error : missing config\n"), 1);
+	if (line_map_start == -2)
+		return (1);
 	if (line_map_start == -1)
-		return (ft_printf("Error : map not found\n"));
+		return (ft_printf("Error : map not found\n"), 1);
 	return (extract_map(game, line_map_start));
 }
+
+// AVANT DE REDUIRE
+// //fonction qui va diviser le fichier map en 2, d'un cote la config 
+// int	divide_map_config(t_game *game)
+// {
+// 	int	i;
+// 	int	nb_config;
+// 	int	line_map_start;
+
+// 	i = 0;
+// 	nb_config = 0;
+// 	line_map_start = -1;
+// 	while (game->file_map[i])
+// 	{
+// 		if (is_empty_line(game->file_map[i]))
+// 		{
+// 			i++;
+// 			continue ;
+// 		}
+// 		if (is_config_line(game->file_map[i]) == 0)
+// 		{
+// 			if (parse_config_line(game->file_map[i], game))
+// 				return (1);
+// 			nb_config++;
+// 		}
+// 		else if (check_cub_char_invalid(game->file_map[i], nb_config))
+// 			return (1);
+// 		else
+// 		{
+// 			line_map_start = i;
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	if (nb_config != 6)
+// 		return (ft_printf("Error : missing config\n"), 1);
+// 	if (line_map_start == -1)
+// 		return (ft_printf("Error : map not found\n"));
+// 	return (extract_map(game, line_map_start));
+// }
 
 //fonction qui recoit une ligne identifiee precedemment comme une line de config
 //identifie si c'est NO, SO... 
