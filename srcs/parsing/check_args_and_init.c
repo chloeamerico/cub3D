@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args_and_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/05 15:36:29 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:12:13 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 static int	check_extension_cub(char *arg)
 {
 	int	len;
-	
+
 	len = ft_strlen(arg);
-	if(len < 5)
+	if (len < 5)
 	{
 		printf("Error : map sould have type <map.cub>\n");
-		return(1);
+		return (1);
 	}
 	if (ft_strcmp(arg + len - 4, ".cub") != 0)
 	{
 		printf("Error : map doesn't finish with a '.cub'\n");
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -36,7 +36,7 @@ int	check_file_exist(char *name)
 	int	fd;
 
 	fd = open(name, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
 		ft_printf("Error : opening the file, wrong path %s\n", name);
 		return (1);
@@ -45,7 +45,7 @@ int	check_file_exist(char *name)
 	return (0);
 }
 
-int check_arg(int argc, char **argv)
+int	check_arg(int argc, char **argv)
 {
 	if (argc != 2)
 	{
@@ -59,7 +59,8 @@ int check_arg(int argc, char **argv)
 	return (0);
 }
 
-// ouvre le fichier, lit le fichier .cub ligne par ligne, et le transforme en tableau char **
+// ouvre le fichier, lit le fichier .cub ligne par ligne,
+// et le transforme en tableau char **
 static char	**load_file(char *name_map)
 {
 	char	**file;
@@ -99,23 +100,21 @@ int	init_struct(t_game *game, char **argv)
 	game->config = malloc(sizeof(t_config));
 	if (!game->config)
 		return (1);
-    game->config->no_texture = NULL;
-    game->config->so_texture = NULL;
-    game->config->we_texture = NULL;
-    game->config->ea_texture = NULL;
-	while(i <= 2)
+	game->config->no_texture = NULL;
+	game->config->so_texture = NULL;
+	game->config->we_texture = NULL;
+	game->config->ea_texture = NULL;
+	while (i <= 2)
 	{
 		game->config->C[i] = 0;
 		i++;
 	}
 	i = 0;
-	while(i <= 2)
+	while (i <= 2)
 	{
 		game->config->F[i] = 0;
 		i++;
 	}
 	game->config->type = 0;
-	return(0);
+	return (0);
 }
-
-
