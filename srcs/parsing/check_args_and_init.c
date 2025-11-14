@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args_and_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 17:12:13 by camerico         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:28:36 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,13 @@ int	init_struct(t_game *game, char **argv)
 	game->config->ea_texture = NULL;
 	while (i <= 2)
 	{
-		game->config->C[i] = 0;
+		game->config->c[i] = 0;
 		i++;
 	}
 	i = 0;
 	while (i <= 2)
 	{
-		game->config->F[i] = 0;
+		game->config->f[i] = 0;
 		i++;
 	}
 	game->config->type = 0;
