@@ -1,104 +1,196 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 18:00:00 by user              #+#    #+#             */
+/*   Updated: 2025/11/14 11:38:52 by lleichtn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 #include <math.h>
 
-//But : écrire un pixel dans le framebuffer en toute sécurité.
-static void mm_safe_px(t_game *g, int x, int y, uint32_t c)
+#define MM_R 8
+#define MM_T 6
+#define MM_OX 8
+#define MM_OY 8
+
+typedef struct s_mm_rect
 {
-    if (x >= 0 && y >= 0 && x < W && y < H)
-        put_px(&g->frame, x, y, c);
+	int			x;
+	int			y;
+	int			w;
+	int			h;
+}	t_mm_rect;
+
+typedef struct s_mm_circle
+{
+	int			x;
+	int			y;
+	int			r;
+	uint32_t	col;
+}	t_mm_circle;
+
+typedef struct s_mm_dir
+{
+	int			x;
+	int			y;
+	int			len;
+	uint32_t	col;
+}	t_mm_dir;
+
+typedef struct s_mm_cell
+{
+	int			gx;
+	int			gy;
+	int			mx;
+	int			my;
+	int			sx;
+	int			sy;
+	uint32_t	col;
+}	t_mm_cell;
+
+static void	mm_safe_px(t_game *g, int x, int y, uint32_t col)
+{
+	if (x >= 0 && y >= 0 && x < W && y < H)
+		put_px(&g->frame, x, y, col);
 }
 
-//But : dessiner un rectangle plein (utilisé pour les cases de la mini-map et le fond).
-static void mm_draw_rect(t_game *g, int x, int y, int w, int h, uint32_t c)
+static void	mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col)
 {
-    int i, j;
-    j = 0;
-    while (j < h)
-    {
-        i = 0;
-        while (i < w)
-        {
-            mm_safe_px(g, x + i, y + j, c);
-            i++;
-        }
-        j++;
-    }
+	int			i;
+	int			j;
+
+	j = 0;
+	while (j < r.h)
+	{
+		i = 0;
+		while (i < r.w)
+		{
+			mm_safe_px(g, r.x + i, r.y + j, col);
+			i++;
+		}
+		j++;
+	}
 }
 
-//But : dessiner un petit disque (le pion du joueur).
-static void mm_draw_circle(t_game *g, int cx, int cy, int r, uint32_t c)
+static void	mm_draw_circle(t_game *g, t_mm_circle c)
 {
-    int y = -r;
-    while (y <= r)
-    {
-        int x = -r;
-        while (x <= r)
-        {
-            if (x*x + y*y <= r*r)
-                mm_safe_px(g, cx + x, cy + y, c);
-            x++;
-        }
-        y++;
-    }
+	int			x;
+	int			y;
+
+	y = -c.r;
+	while (y <= c.r)
+	{
+		x = -c.r;
+		while (x <= c.r)
+		{
+			if (x * x + y * y <= c.r * c.r)
+				mm_safe_px(g, c.x + x, c.y + y, c.col);
+			x++;
+		}
+		y++;
+	}
 }
 
-//But : tracer un petit trait devant le joueur pour montrer la direction de vue.
-static void mm_draw_dir(t_game *g, int x0, int y0, int len, uint32_t c)
+static void	mm_draw_dir(t_game *g, t_mm_dir d)
 {
-    double dx = g->dir_x, dy = g->dir_y;
-    double x = (double)x0, y = (double)y0;
-    int i = 0;
-    while (i < len)
-    {
-        mm_safe_px(g, (int)x, (int)y, c);
-        x += dx;
-        y += dy;
-        i++;
-    }
+	double		x;
+	double		y;
+	int			i;
+
+	x = (double)d.x;
+	y = (double)d.y;
+	i = 0;
+	while (i < d.len)
+	{
+		mm_safe_px(g, (int)x, (int)y, d.col);
+		x += g->dir_x;
+		y += g->dir_y;
+		i++;
+	}
 }
 
-//But : composer toute la mini-map et l’afficher en haut-gauche.
-void minimap_draw(t_game *g)
+static void	mm_draw_bg(t_game *g)
 {
-    const int R = 8;          /* rayon en cases autour du joueur */
-    const int T = 6;          /* taille d’une case en pixels */
-    const int OX = 8, OY = 8; /* offset écran (haut-gauche) */
+	t_mm_rect	r;
 
-    /* fond opaque pour la zone minimap (optionnel) */
-    mm_draw_rect(g, OX-2, OY-2, (2*R+1)*T + 4, (2*R+1)*T + 4, 0x80000000);
+	r.x = MM_OX - 2;
+	r.y = MM_OY - 2;
+	r.w = (2 * MM_R + 1) * MM_T + 4;
+	r.h = (2 * MM_R + 1) * MM_T + 4;
+	mm_draw_rect(g, r, 0x80000000);
+}
 
-    int gy = -R;
-    while (gy <= R)
-    {
-        int gx = -R;
-        while (gx <= R)
-        {
-            int mx = (int)g->px + gx;
-            int my = (int)g->py + gy;
+static void	mm_draw_cell_line(t_game *g, int gy)
+{
+	t_mm_cell	c;
+	t_mm_rect	r;
 
-            /* top-left pixel du carreau à dessiner */
-            int sx = OX + (gx + R) * T;
-            int sy = OY + (gy + R) * T;
+	c.gy = gy;
+	c.gx = -MM_R;
+	while (c.gx <= MM_R)
+	{
+		c.mx = (int)g->px + c.gx;
+		c.my = (int)g->py + c.gy;
+		c.sx = MM_OX + (c.gx + MM_R) * MM_T;
+		c.sy = MM_OY + (c.gy + MM_R) * MM_T;
+		if (c.mx < 0 || c.my < 0 || c.mx >= g->map_w || c.my >= g->map_h)
+			c.col = 0xFF202020;
+		else if (g->map_int[c.my][c.mx] == 1)
+			c.col = 0xFF505050;
+		else
+			c.col = 0xFF9A9A9A;
+		r.x = c.sx;
+		r.y = c.sy;
+		r.w = MM_T - 1;
+		r.h = MM_T - 1;
+		mm_draw_rect(g, r, c.col);
+		c.gx++;
+	}
+}
 
-            uint32_t col;
-            if (mx < 0 || my < 0 || mx >= g->map_w || my >= g->map_h)
-                col = 0xFF202020;                 /* hors-map */
-            else if (g->map_int[my][mx] == 1)
-                col = 0xFF505050;                 /* mur */
-            else
-                col = 0xFF9A9A9A;                 /* vide */
+static void	mm_draw_cells(t_game *g)
+{
+	int			gy;
 
-            mm_draw_rect(g, sx, sy, T-1, T-1, col);
-            gx++;
-        }
-        gy++;
-    }
+	gy = -MM_R;
+	while (gy <= MM_R)
+	{
+		mm_draw_cell_line(g, gy);
+		gy++;
+	}
+}
 
-    /* position du joueur dans la minimap (au centre du patch) */
-    int pcx = OX + R*T + (int)((g->px - floor(g->px)) * T);
-    int pcy = OY + R*T + (int)((g->py - floor(g->py)) * T);
+static void	mm_draw_player(t_game *g)
+{
+	t_mm_circle	c;
+	t_mm_dir	d;
+	int			pcx;
+	int			pcy;
 
-    /* joueur + direction */
-    mm_draw_circle(g, pcx, pcy, 2, 0xFFFF0000);  /* point rouge */
-    mm_draw_dir(g, pcx, pcy, 8, 0xFFFF0000);     /* petit trait devant */
+	pcx = MM_OX + MM_R * MM_T;
+	pcx += (int)((g->px - floor(g->px)) * MM_T);
+	pcy = MM_OY + MM_R * MM_T;
+	pcy += (int)((g->py - floor(g->py)) * MM_T);
+	c.x = pcx;
+	c.y = pcy;
+	c.r = 2;
+	c.col = 0xFFFF0000;
+	mm_draw_circle(g, c);
+	d.x = pcx;
+	d.y = pcy;
+	d.len = 8;
+	d.col = 0xFFFF0000;
+	mm_draw_dir(g, d);
+}
+
+void	minimap_draw(t_game *g)
+{
+	mm_draw_bg(g);
+	mm_draw_cells(g);
+	mm_draw_player(g);
 }

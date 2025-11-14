@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 11:52:15 by lleichtn          #+#    #+#             */
+/*   Updated: 2025/11/14 14:17:24 by lleichtn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 #define CUB3D_H
 
@@ -5,42 +17,39 @@
 /* INCLUDES */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include "mlx.h"
-#include "./libft/includes/libft.h"
-#include <X11/keysym.h>
-#include <math.h> 
-#include <sys/time.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdint.h>
+# include "mlx.h"
+# include "./libft/includes/libft.h"
+# include <X11/keysym.h>
+# include <math.h> 
+# include <sys/time.h>
 
 /* ************************************************************************** */
 /* DEFINES */
 /* ************************************************************************** */
 
-#define W 1024
-#define H 640
-#define TEX_NO 0
-#define TEX_SO 1
-#define TEX_WE 2
-#define TEX_EA 3
-#define TEX_NB 4
+# define W 1024
+# define H 640
+# define TEX_NO 0
+# define TEX_SO 1
+# define TEX_WE 2
+# define TEX_EA 3
+# define TEX_NB 4
 
 /* ************************************************************************** */
 /* STRUCTURES */
 /* ************************************************************************** */
 
-// Gestion couleur (commentée si non utilisée)
-// typedef struct s_couleur {
-//     int R;
-//     int G;
-//     int B;
-//     int F; // pour savoir si le type F ou C a deja ete detecte
-//     int C;
-// } t_couleur;
+typedef struct s_pair
+{
+	const char	*a;
+	const char	*b;
+}	t_pair;
 
 // Données parsing
 typedef struct s_data {
@@ -128,21 +137,20 @@ typedef struct s_game {
 /* ************************************************************************** */
 /* PROTOTYPES PARSING */
 /* ************************************************************************** */
-
-int     check_arg(int argc, char **argv);
-int     init_struct(t_game *game, char **argv);
-int     divide_map_config(t_game *game);
-int     parse_config_line(char *line, t_game *game);
-int     is_empty_line(char *line);
-int     check_file_exist(char *name);
-int     parse_texture(char *line, int i, t_game *game);
-int     parse_color(char *line, t_game *game, int start);
-int     extract_map(t_game *game, int line_map_start);
-int     parsing_map(t_game *game);
-int     check_map_close(t_game *game, char **map);
-int     valid_path(t_game *game);
-void free_char_tab(char **tab);
-void free_int_tab(int **tab, int height);
+int         check_arg(int argc, char **argv);
+int         init_struct(t_game *game, char **argv);
+int         divide_map_config(t_game *game);
+int         parse_config_line(char *line, t_game *game);
+int         is_empty_line(char *line);
+int         check_file_exist(char *name);
+int         parse_texture(char *line, int i, t_game *game);
+int         parse_color(char *line, t_game *game, int start);
+int         extract_map(t_game *game, int line_map_start);
+int         parsing_map(t_game *game);
+int         check_map_close(t_game *game, char **map);
+int         valid_path(t_game *game);
+void        free_char_tab(char **tab);
+void        free_int_tab(int **tab, int height);
 
 
 /* ************************************************************************** */
@@ -150,47 +158,40 @@ void free_int_tab(int **tab, int height);
 /* ************************************************************************** */
 
 /* mlx_wrap.c */
-int     init_mlx(t_game *g);
-int     frame_new(t_game *g, int w, int h);
-void    frame_destroy(t_game *g);
-void    put_px(t_img *i, int x, int y, uint32_t c);
+int         init_mlx(t_game *g);
+int         frame_new(t_game *g, int w, int h);
+void        frame_destroy(t_game *g);
+void        put_px(t_img *i, int x, int y, uint32_t c);
 
 /* textures.c */
-int     load_textures(t_game *g, const char *no, const char *so, const char *we, const char *ea);
-void    destroy_textures(t_game *g);
-uint32_t get_texel(const t_tex *t, int u, int v);
-int     choose_tex_id(const t_ray *r);
+// int         load_textures(t_game *g, const char *no, const char *so, const char *we, const char *ea);
+void        destroy_textures(t_game *g);
+uint32_t    get_texel(const t_tex *t, int u, int v);
+int         choose_tex_id(const t_ray *r);
 
 /* render.c */
 // void    render_frame(t_game *g);
 
 /* raycast.c */
-void    ray_setup(t_game *g, t_ray *r, int x);
-void    ray_dda(t_game *g, t_ray *r);
+void        ray_setup(t_game *g, t_ray *r, int x);
+void        ray_dda(t_game *g, t_ray *r);
 
 /* draw.c */
-void    draw_column(t_game *g, int x, t_ray *r);
+void        draw_column(t_game *g, int x, t_ray *r);
 
 /* player.c */
-int     key_press(int key, t_game *g);
-int     key_release(int key, t_game *g);
-int     close_win(t_game *g);
-void    player_update(t_game *g, double dt);
-int     mouse_press(int button, int x, int y, t_game *g);
-int     mouse_release(int button, int x, int y, t_game *g);
-int     mouse_move(int x, int y, t_game *g);
-void    rotate_player(t_game *g, double a);
-void    center_mouse(t_game *g);
-int	load_textures(t_game *g, const char *no, const char *so, const char *we, const char *ea);
-int	load_floor_texture(t_game *g, const char *path);
-void	render_frame(t_game *g);
-
-
-/* main.c */
-// int     loop_hook(t_game *g);
-// int     setup_demo_world(t_game *g);
-// int     load_floor_texture(t_game *g, const char *path);
-
-void    minimap_draw(t_game *g);
+int         key_press(int key, t_game *g);
+int         key_release(int key, t_game *g);
+int         close_win(t_game *g);
+void        player_update(t_game *g, double dt);
+int         mouse_press(int button, int x, int y, t_game *g);
+int         mouse_release(int button, int x, int y, t_game *g);
+int         mouse_move(int x, int y, t_game *g);
+void        rotate_player(t_game *g, double a);
+void        center_mouse(t_game *g);
+// int         load_textures(t_game *g, const char *no, const char *so, const char *we, const char *ea);
+int	        load_floor_texture(t_game *g, const char *path);
+void        render_frame(t_game *g);
+void        minimap_draw(t_game *g);
 
 #endif

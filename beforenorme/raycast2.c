@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 11:46:08 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 11:49:44 by lleichtn         ###   ########.fr       */
+/*   Created: 2025/11/14 11:46:06 by lleichtn          #+#    #+#             */
+/*   Updated: 2025/11/14 11:46:08 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,7 @@ static void	set_steps(t_ray *r, double px, double py)
 	}
 }
 
-static void	set_deltas(t_ray *r)
-{
-	if (r->ray_x == 0.0)
-		r->delta_x = 1e30;
-	else
-		r->delta_x = fabs(1.0 / r->ray_x);
-	if (r->ray_y == 0.0)
-		r->delta_y = 1e30;
-	else
-		r->delta_y = fabs(1.0 / r->ray_y);
-}
-
+//calcule la cam pour x
 void	ray_setup(t_game *g, t_ray *r, int x)
 {
 	r->cam_x = 2.0 * x / (double)W - 1.0;
@@ -55,54 +44,38 @@ void	ray_setup(t_game *g, t_ray *r, int x)
 	r->ray_y = g->dir_y + g->pl_y * r->cam_x;
 	r->map_x = (int)g->px;
 	r->map_y = (int)g->py;
-	set_deltas(r);
+	r->delta_x = (r->ray_x == 0) ? 1e30 : fabs(1.0 / r->ray_x);
+	r->delta_y = (r->ray_y == 0) ? 1e30 : fabs(1.0 / r->ray_y);
 	set_steps(r, g->px, g->py);
 }
 
-static void	dda_advance(t_ray *r)
-{
-	if (r->side_x < r->side_y)
-	{
-		r->side_x += r->delta_x;
-		r->map_x += r->step_x;
-		r->side = 0;
-	}
-	else
-	{
-		r->side_y += r->delta_y;
-		r->map_y += r->step_y;
-		r->side = 1;
-	}
-}
-
-static int	ray_outside_map(t_game *g, t_ray *r)
-{
-	if (r->map_x < 0)
-		return (1);
-	if (r->map_y < 0)
-		return (1);
-	if (r->map_x >= g->map_w)
-		return (1);
-	if (r->map_y >= g->map_h)
-		return (1);
-	return (0);
-}
-
+//avance case par case
 void	ray_dda(t_game *g, t_ray *r)
 {
-	int	hit;
+	int hit;
 
 	hit = 0;
 	while (!hit)
 	{
-		dda_advance(r);
-		if (ray_outside_map(g, r))
+		if (r->side_x < r->side_y)
+		{
+			r->side_x += r->delta_x;
+			r->map_x += r->step_x;
+			r->side = 0;
+		}
+		else
+		{
+			r->side_y += r->delta_y;
+			r->map_y += r->step_y;
+			r->side = 1;
+		}
+		if (r->map_x < 0 || r->map_y < 0 || r->map_x >= g->map_w || r->map_y >= g->map_h)
 			break ;
 		if (g->map_int[r->map_y][r->map_x] == 1)
 			hit = 1;
 	}
 	if (r->side == 0)
-		r->perp = r->side_x - r->delta_x;
+		r->perp = (r->side_x - r->delta_x);
 	else
-		r->perp = r->side_y - r->delta_y;
+		r->perp = (r->side_y - r->delta_y);
 }
