@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:40:35 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 11:41:09 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:20:19 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,4 @@ void	put_px(t_img *i, int x, int y, uint32_t c)
 	p = i->addr + y * i->line_len + x * (i->bpp / 8);
 	*(uint32_t *)p = c;
 }
+

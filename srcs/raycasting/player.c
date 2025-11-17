@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:41:33 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 11:45:37 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:27:03 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,21 @@ int	key_release(int key, t_game *g)
 	return (0);
 }
 
+// int	close_win(t_game *g)
+// {
+// 	destroy_textures(g);
+// 	frame_destroy(g);
+// 	mlx_destroy_window(g->mlx, g->win);
+// 	exit(0);
+// 	return (0);
+// }
+
 int	close_win(t_game *g)
 {
-	destroy_textures(g);
-	frame_destroy(g);
-	mlx_destroy_window(g->mlx, g->win);
+	free_all_local(g);
+	mlx_destroy_display(g->mlx);
+	free(g->mlx);
 	exit(0);
-	return (0);
 }
 
 void	center_mouse(t_game *g)

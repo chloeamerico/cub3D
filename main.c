@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 18:00:53 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:24:36 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ static void	set_dir(t_game *g, char c)
 		set_dir_ew(g, c);
 }
 
-
 // static void	find_player(t_game *g)
 // {
 // 	int		x;
@@ -229,11 +228,69 @@ static void	find_player(t_game *g)
 	g->pl_y = -0.66;
 }
 
+// void	free_all_local(t_game *g)
+// {
+// 	if (!g)
+// 		return ;
+// 	free_char_tab(g->file_map);
+// 	free_char_tab(g->map);
+// 	if (g->map_int)
+// 		free_int_tab(g->map_int, g->map_h);
+// 	if (g->config)
+// 		free(g->config);
+// 	if (g->data)
+// 		free(g->data);
+// }
 
-static void	free_all_local(t_game *g)
+// void	free_all_local(t_game *g)
+// {
+// 	int	i;
+
+// 	if (!g)
+// 		return ;
+
+// 	i = 0;
+// 	while (i < TEX_NB)
+// 	{
+// 		if (g->tex[i].i.img)
+// 			mlx_destroy_image(g->mlx, g->tex[i].i.img);
+// 		i++;
+// 	}
+
+// 	if (g->frame.img)
+// 		mlx_destroy_image(g->mlx, g->frame.img);
+
+// 	free_char_tab(g->file_map);
+// 	free_char_tab(g->map);
+
+// 	if (g->map_int)
+// 		free_int_tab(g->map_int, g->map_h);
+
+// 	if (g->config)
+// 		free(g->config);
+
+// 	if (g->data)
+// 		free(g->data);
+// }
+
+void	free_all_local(t_game *g)
 {
+	int	i;
+
 	if (!g)
 		return ;
+
+	i = 0;
+	while (i < TEX_NB)
+	{
+		if (g->tex[i].i.img)
+			mlx_destroy_image(g->mlx, g->tex[i].i.img);
+		i++;
+	}
+	if (g->floor_tex.i.img)
+		mlx_destroy_image(g->mlx, g->floor_tex.i.img);
+	if (g->frame.img)
+		mlx_destroy_image(g->mlx, g->frame.img);
 	free_char_tab(g->file_map);
 	free_char_tab(g->map);
 	if (g->map_int)
@@ -243,6 +300,7 @@ static void	free_all_local(t_game *g)
 	if (g->data)
 		free(g->data);
 }
+
 
 static int	loop_hook(t_game *g)
 {
@@ -384,7 +442,7 @@ int	main(int ac, char **av, char **envp)
 	if (!load_textures(&g, ns, we))
 		return (free_all_local(&g), 1);
 	load_floor_texture(&g, "texture/grass.xpm");
-	free_char_tab(g.file_map);
+	// free_char_tab(g.file_map);
 	start_loop(&g);
 	free_all_local(&g);
 	return (0);

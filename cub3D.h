@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:52:15 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/14 15:53:10 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:26:01 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 /* DEFINES */
 /* ************************************************************************** */
 
+# define TEX_COUNT 4
 # define W 1024
 # define H 640
 # define TEX_NO 0
@@ -140,24 +141,24 @@ typedef struct s_game
 /* PROTOTYPES PARSING */
 /* ************************************************************************** */
 
-int     check_arg(int argc, char **argv);
-int     init_struct(t_game *game, char **argv);
-int     divide_map_config(t_game *game);
-int     parse_config_line(char *line, t_game *game);
-int     is_empty_line(char *line);
-int     check_file_exist(char *name);
-int     parse_texture(char *line, int i, t_game *game);
-int     parse_color(char *line, t_game *game, int start);
-int     extract_map(t_game *game, int line_map_start);
-int     parsing_map(t_game *game);
-int     check_map_close(t_game *game, char **map);
-int     valid_path(t_game *game);
-int     check_cub_char_invalid(char *line, int nb_config);
-int     implement_config_line(t_game *game, int *nb_config, int i);
-void    free_char_tab(char **tab);
-void    free_int_tab(int **tab, int height);
-void	err1(char **tab_couleur);
-void	err2(char **tab_couleur);
+int			check_arg(int argc, char **argv);
+int			init_struct(t_game *game, char **argv);
+int			divide_map_config(t_game *game);
+int			parse_config_line(char *line, t_game *game);
+int			is_empty_line(char *line);
+int			check_file_exist(char *name);
+int			parse_texture(char *line, int i, t_game *game);
+int			parse_color(char *line, t_game *game, int start);
+int			extract_map(t_game *game, int line_map_start);
+int			parsing_map(t_game *game);
+int			check_map_close(t_game *game, char **map);
+int			valid_path(t_game *game);
+int			check_cub_char_invalid(char *line, int nb_config);
+int			implement_config_line(t_game *game, int *nb_config, int i);
+void		free_char_tab(char **tab);
+void		free_int_tab(int **tab, int height);
+void		err1(char **tab_couleur);
+void		err2(char **tab_couleur);
 
 /* ************************************************************************** */
 /* PROTOTYPES RENDU & MLX */
@@ -190,7 +191,9 @@ void		center_mouse(t_game *g);
 int			load_floor_texture(t_game *g, const char *path);
 void		render_frame(t_game *g);
 void		minimap_draw(t_game *g);
-int         load_textures(t_game *g, t_pair ns, t_pair we);
-void	free_int_tab(int **tab, int h);
+int			load_textures(t_game *g, t_pair ns, t_pair we);
+void		free_int_tab(int **tab, int h);
+void		free_mlx(t_game *g);
+void		free_all_local(t_game *g);
 
 #endif
