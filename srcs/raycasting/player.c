@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:41:33 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/17 16:27:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/21 13:50:06 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ static void	player_rotate_keys(t_game *g, double dt)
 
 	speed = 2.5 * dt;
 	if (g->key[XK_Left])
-		rotate_player(g, speed);
-	if (g->key[XK_Right])
 		rotate_player(g, -speed);
+	if (g->key[XK_Right])
+		rotate_player(g, speed);
 }
 
 void	player_update(t_game *g, double dt)
@@ -119,7 +119,7 @@ void	player_update(t_game *g, double dt)
 
 int	key_press(int key, t_game *g)
 {
-	if (key >= 0 && key < 512)
+	if (key >= 0 && key < 65536)
 		g->key[key] = 1;
 	if (key == XK_Escape)
 		close_win(g);
@@ -128,19 +128,10 @@ int	key_press(int key, t_game *g)
 
 int	key_release(int key, t_game *g)
 {
-	if (key >= 0 && key < 512)
+	if (key >= 0 && key < 65536)
 		g->key[key] = 0;
 	return (0);
 }
-
-// int	close_win(t_game *g)
-// {
-// 	destroy_textures(g);
-// 	frame_destroy(g);
-// 	mlx_destroy_window(g->mlx, g->win);
-// 	exit(0);
-// 	return (0);
-// }
 
 int	close_win(t_game *g)
 {
