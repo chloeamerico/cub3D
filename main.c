@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/17 17:24:36 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:13:00 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,5 +445,13 @@ int	main(int ac, char **av, char **envp)
 	// free_char_tab(g.file_map);
 	start_loop(&g);
 	free_all_local(&g);
+	// printf("test\n");
+	// if (g.win)
+	// 	mlx_destroy_window(g.mlx, g.win);
+	// if (g.mlx) 
+	// {
+	// 	mlx_destroy_display(g.mlx);
+	// 	free(g.mlx);
+	// }
 	return (0);
 }

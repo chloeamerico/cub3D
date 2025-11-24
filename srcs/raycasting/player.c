@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 11:41:33 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/21 13:50:06 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:21:18 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ int	key_release(int key, t_game *g)
 int	close_win(t_game *g)
 {
 	free_all_local(g);
+	if (g->win)
+		mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
 	exit(0);
