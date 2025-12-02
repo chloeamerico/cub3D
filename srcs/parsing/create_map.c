@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:52:02 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 15:33:46 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:14:30 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_cub_char_invalid(char *line, int nb_config)
 	while (line[i])
 	{
 		if (nb_config != 6 && line[i] != 1 && line[i] != 0 && line[i] != ' ')
-			return (ft_printf("Error : invalid char in .cub file\n"), 1);
+			return (ft_printf("Error : invalid char or missing config\n"), 1);
 		i++;
 	}
 	return (0);
