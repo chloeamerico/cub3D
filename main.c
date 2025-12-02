@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/02 15:45:43 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:22:37 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,22 @@ static double	get_time_sec(void)
 static void	fill_int_line(int *dst, char *src, int w)
 {
 	int	x;
+	int	len;
 
+	len = ft_strlen(src);
 	x = 0;
 	while (x < w)
 	{
-		if (src[x] == '1' || src[x] == ' ')
+		if (x >= len || src[x] == ' ' || src[x] == '\n')
+			dst[x] = 1;
+		else if (src[x] == '1')
 			dst[x] = 1;
 		else
 			dst[x] = 0;
 		x++;
 	}
 }
+
 
 static int	**map_char_to_int(char **map, int w, int h)
 {
@@ -192,9 +197,11 @@ static int	find_player_in_line(t_game *g, int y)
 {
 	int		x;
 	char	c;
+	int		len;
 
+	len =ft_strlen(g->map[y]);
 	x = 0;
-	while (x < g->map_w)
+	while (x < len)
 	{
 		c = g->map[y][x];
 		if (c == 'N' || c == 'S' || c == 'E' || c == 'W')

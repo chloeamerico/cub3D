@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:56:08 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/13 17:24:08 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:15:05 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	flood_fill(char **map, int x, int y, t_game *game)
 		return (1);
 	if (x < 0 || x >= (int)ft_strlen(map[y]))
 		return (1);
+	// if (map[y][x] == ' ')
+	// 	return (1);
 	if (map[y][x] == '1' || map[y][x] == 'V')
 		return (0);
 	if (map[y][x] == '\n' || map[y][x] == '\0')
