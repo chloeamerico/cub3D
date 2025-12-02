@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:57:49 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/02 13:01:13 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:18:40 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void	draw_walls(t_game *g, int x, t_ray *r, t_tex *tex)
 		y++;
 	}
 }
-
 
 // static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
 // {
