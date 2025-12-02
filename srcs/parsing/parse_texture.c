@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:40:29 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 15:33:59 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:48:04 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,71 @@ static char	*find_texture_path(char *line, int i, char *path)
 	return (path);
 }
 
-static int	add_struct(t_game *game, char *path, char *line, int i)
-{
-	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-	{
-		if (game->config.no_texture != NULL)
-			return (ft_printf("Error : double North texture detected\n"), 1);
-		game->config.no_texture = path;
-	}
-	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-	{
-		if (game->config.so_texture != NULL)
-			return (ft_printf("Error : double South texture detected\n"), 1);
-		game->config.so_texture = path;
-	}
-	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-	{
-		if (game->config.we_texture != NULL)
-			return (ft_printf("Error : double West texture detected\n"), 1);
-		game->config.we_texture = path;
-	}
-	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-	{
-		if (game->config.ea_texture != NULL)
-			return (ft_printf("Error : double East texture detected\n"), 1);
-		game->config.ea_texture = path;
-	}
-	return (0);
-}
+// static int	add_struct(t_game *game, char *path, char *line, int i)
+// {
+// 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.no_texture != NULL)
+// 			return (ft_printf("Error : double North texture detected\n"), 1);
+// 		game->config.no_texture = path;
+// 	}
+// 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.so_texture != NULL)
+// 			return (ft_printf("Error : double South texture detected\n"), 1);
+// 		game->config.so_texture = path;
+// 	}
+// 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.we_texture != NULL)
+// 			return (ft_printf("Error : double West texture detected\n"), 1);
+// 		game->config.we_texture = path;
+// 	}
+// 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.ea_texture != NULL)
+// 			return (ft_printf("Error : double East texture detected\n"), 1);
+// 		game->config.ea_texture = path;
+// 	}
+// 	return (0);
+// }
+
+// static int	add_struct(t_game *game, char *path, char *line, int i)
+// {
+// 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.no_texture != NULL)
+// 			return (free(path), free(game->config.no_texture),
+// 				game->config.no_texture = NULL,
+// 				ft_printf("Error : double North texture detected\n"), 1);
+// 		game->config.no_texture = path;
+// 	}
+// 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.so_texture != NULL)
+// 			return (free(path), free(game->config.so_texture),
+// 				game->config.so_texture = NULL,
+// 				ft_printf("Error : double South texture detected\n"), 1);
+// 		game->config.so_texture = path;
+// 	}
+// 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.we_texture != NULL)
+// 			return (free(path), free(game->config.we_texture),
+// 				game->config.we_texture = NULL,
+// 				ft_printf("Error : double West texture detected\n"), 1);
+// 		game->config.we_texture = path;
+// 	}
+// 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+// 	{
+// 		if (game->config.ea_texture != NULL)
+// 			return (free(path), free(game->config.ea_texture),
+// 				game->config.ea_texture = NULL,
+// 				ft_printf("Error : double East texture detected\n"), 1);
+// 		game->config.ea_texture = path;
+// 	}
+// 	return (0);
+// }
 
 //extrait le chemin vers la texture
 // verifie que le fichier existe (avec open)
@@ -93,8 +130,7 @@ int	parse_texture(char *line, int i, t_game *game)
 	int		start;
 
 	start = 0;
-	path = NULL;
-	path = find_texture_path(line, i, path);
+	path = find_texture_path(line, i, NULL);
 	if (!path)
 		return (1);
 	if (check_file_exist(path))

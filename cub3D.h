@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 15:12:52 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 17:37:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 18:48:20 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,5 +231,6 @@ void		mm_draw_dir(t_game *g, t_mm_dir d);
 void		mm_safe_px(t_game *g, int x, int y, uint32_t col);
 void		mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col);
 int			is_number(char *s);
+int			add_struct(t_game *g, char *path, char *line, int i);
 
 #endif

@@ -72,6 +72,7 @@ parsing/flood_fill.c \
 parsing/parse_color.c \
 parsing/parse_map.c \
 parsing/parse_texture.c \
+parsing/parse_text2.c \
 raycasting/draw.c \
 raycasting/draw2.c \
 raycasting/mlx_wrap.c \
