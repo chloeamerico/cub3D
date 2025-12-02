@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 15:30:41 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:14:11 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	divide_map_config(t_game *game)
 }
 
 // AVANT DE REDUIRE
-// //fonction qui va diviser le fichier map en 2, d'un cote la config 
+//fonction qui va diviser le fichier map en 2, d'un cote la config 
 // int	divide_map_config(t_game *game)
 // {
 // 	int	i;
