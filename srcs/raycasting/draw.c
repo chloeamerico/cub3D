@@ -6,24 +6,11 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:57:49 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/02 14:18:40 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:55:16 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// static void	draw_span(t_game *g, int x, int y0, int y1, uint32_t c)
-// {
-// 	if (y0 < 0)
-// 		y0 = 0;
-// 	if (y1 >= H)
-// 		y1 = H - 1;
-// 	while (y0 <= y1)
-// 	{
-// 		put_px(&g->frame, x, y0, c);
-// 		y0++;
-// 	}
-// }
 
 typedef struct s_span
 {
@@ -44,85 +31,34 @@ void	draw_span(t_game *g, int x, t_span s, uint32_t col)
 	}
 }
 
-// static void	draw_walls(t_game *g, int x, t_ray *r, int h, int tex_id)
+// void	draw_walls(t_game *g, int x, t_ray *r, t_tex *tex)
 // {
+// 	int		h;
 // 	int		y;
-// 	double	step;
-// 	double	tex_pos;
-// 	int		ty;
 // 	int		tx;
+// 	double	step;
+// 	double	ty;
 
+// 	h = (int)((double)H / fmax(r->perp, 0.00001));
 // 	if (h < 1)
 // 		h = 1;
 // 	y = -h / 2 + H / 2;
-// 	tex_pos = 0.0;
+// 	ty = 0;
 // 	if (y < 0)
 // 	{
-// 		tex_pos = (-y) * (double)g->tex[tex_id].i.h / h;
+// 		ty = (-y) * ((double)tex->i.h / h);
 // 		y = 0;
 // 	}
-// 	step = (double)g->tex[tex_id].i.h / (double)h;
-// 	if (r->side == 0)
-// 		tx = (int)((g->py + r->perp * r->ray_y) * 
-// g->tex[tex_id].i.w) % g->tex[tex_id].i.w;
-// 	else
-// 		tx = (int)((g->px + r->perp * r->ray_x) * 
-// g->tex[tex_id].i.w) % g->tex[tex_id].i.w;
-// 	if ((r->side == 0 && r->ray_x > 0) || (r->side == 1 && r->ray_y < 0))
-// 		tx = g->tex[tex_id].i.w - 1 - tx;
-// 	while (y < H / 2 + h / 2 && y < H)
+// 	step = (double)tex->i.h / h;
+// 	tx = get_wall_tx(g, r, tex);
+// 	while (y < H && y < H / 2 + h / 2)
 // 	{
-// 		ty = (int)tex_pos;
-// 		put_px(&g->frame, x, y, get_texel(&g->tex[tex_id], tx, ty));
-// 		tex_pos += step;
+// 		put_px(&g->frame, x, y,
+// 			get_texel(tex, tx, (int)ty));
+// 		ty += step;
 // 		y++;
 // 	}
 // }
-
-static int	get_wall_tx(t_game *g, t_ray *r, t_tex *t)
-{
-	double	pos;
-
-	if (r->side == 0)
-		pos = g->py + r->perp * r->ray_y;
-	else
-		pos = g->px + r->perp * r->ray_x;
-	pos *= t->i.w;
-	pos = fmod(pos, t->i.w);
-	if ((r->side == 0 && r->ray_x > 0)
-		|| (r->side == 1 && r->ray_y < 0))
-		pos = t->i.w - pos - 1;
-	return ((int)pos);
-}
-
-void	draw_walls(t_game *g, int x, t_ray *r, t_tex *tex)
-{
-	int		h;
-	int		y;
-	int		tx;
-	double	step;
-	double	ty;
-
-	h = (int)((double)H / fmax(r->perp, 0.00001));
-	if (h < 1)
-		h = 1;
-	y = -h / 2 + H / 2;
-	ty = 0;
-	if (y < 0)
-	{
-		ty = (-y) * ((double)tex->i.h / h);
-		y = 0;
-	}
-	step = (double)tex->i.h / h;
-	tx = get_wall_tx(g, r, tex);
-	while (y < H && y < H / 2 + h / 2)
-	{
-		put_px(&g->frame, x, y,
-			get_texel(tex, tx, (int)ty));
-		ty += step;
-		y++;
-	}
-}
 
 // static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
 // {

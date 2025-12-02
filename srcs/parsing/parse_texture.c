@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:40:29 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 13:15:12 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:16:39 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	add_struct(t_game *game, char *path, char *line, int i)
 	}
 	return (0);
 }
-
 
 //extrait le chemin vers la texture
 // verifie que le fichier existe (avec open)

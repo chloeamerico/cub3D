@@ -73,12 +73,17 @@ parsing/parse_color.c \
 parsing/parse_map.c \
 parsing/parse_texture.c \
 raycasting/draw.c \
+raycasting/draw2.c \
 raycasting/mlx_wrap.c \
 raycasting/player.c \
+raycasting/player2.c \
+raycasting/player3.c \
 raycasting/raycast.c \
 raycasting/render.c \
 raycasting/minimap.c \
+raycasting/minimap2.c \
 raycasting/textures.c \
+raycasting/textures2.c \
 parsing/free.c \
 
 # Paths complets

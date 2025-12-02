@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 12:57:56 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:16:28 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ void	free_mlx(t_game *g)
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
 }
-

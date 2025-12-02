@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:00:00 by user              #+#    #+#             */
-/*   Updated: 2025/12/02 14:27:19 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:56:37 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #define MM_T 6
 #define MM_OX 8
 #define MM_OY 8
-
 
 typedef struct s_mm_cell
 {
