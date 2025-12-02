@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/24 14:13:00 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:14:21 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,18 +275,16 @@ static void	find_player(t_game *g)
 
 void	free_all_local(t_game *g)
 {
-	int	i;
-
 	if (!g)
 		return ;
-
-	i = 0;
-	while (i < TEX_NB)
-	{
-		if (g->tex[i].i.img)
-			mlx_destroy_image(g->mlx, g->tex[i].i.img);
-		i++;
-	}
+	if (g->tex_no.i.img)
+		mlx_destroy_image(g->mlx, g->tex_no.i.img);
+	if (g->tex_so.i.img)
+		mlx_destroy_image(g->mlx, g->tex_so.i.img);
+	if (g->tex_we.i.img)
+		mlx_destroy_image(g->mlx, g->tex_we.i.img);
+	if (g->tex_ea.i.img)
+		mlx_destroy_image(g->mlx, g->tex_ea.i.img);
 	if (g->floor_tex.i.img)
 		mlx_destroy_image(g->mlx, g->floor_tex.i.img);
 	if (g->frame.img)
@@ -295,11 +293,10 @@ void	free_all_local(t_game *g)
 	free_char_tab(g->map);
 	if (g->map_int)
 		free_int_tab(g->map_int, g->map_h);
-	if (g->config)
-		free(g->config);
 	if (g->data)
 		free(g->data);
 }
+
 
 
 static int	loop_hook(t_game *g)
@@ -423,35 +420,33 @@ static void	start_loop(t_game *g)
 int	main(int ac, char **av, char **envp)
 {
 	t_game	g;
-	t_pair	ns;
-	t_pair	we;
 
 	(void)envp;
 	memset(&g, 0, sizeof(g));
 	g.mouse_sens = 0.0025;
+
 	if (init_and_parse(&g, ac, av))
 		return (free_all_local(&g), 1);
+
 	if (setup_world(&g))
 		return (free_all_local(&g), 1);
+
+	// DEBUG : afficher les chemins
+	printf("NO = %s\n", g.config.no_texture);
+	printf("SO = %s\n", g.config.so_texture);
+	printf("WE = %s\n", g.config.we_texture);
+	printf("EA = %s\n", g.config.ea_texture);
+
 	if (!init_mlx(&g) || !frame_new(&g, W, H))
 		return (free_all_local(&g), 1);
-	ns.a = "texture/nord.xpm";
-	ns.b = "texture/sud.xpm";
-	we.a = "texture/ouest.xpm";
-	we.b = "texture/est.xpm";
-	if (!load_textures(&g, ns, we))
+
+	if (!load_wall_textures(&g))
 		return (free_all_local(&g), 1);
+
 	load_floor_texture(&g, "texture/grass.xpm");
-	// free_char_tab(g.file_map);
+
 	start_loop(&g);
 	free_all_local(&g);
-	// printf("test\n");
-	// if (g.win)
-	// 	mlx_destroy_window(g.mlx, g.win);
-	// if (g.mlx) 
-	// {
-	// 	mlx_destroy_display(g.mlx);
-	// 	free(g.mlx);
-	// }
 	return (0);
 }
+

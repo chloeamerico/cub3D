@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/17 17:27:13 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:57:56 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,21 @@ void	free_int_tab(int **tab, int h)
 
 void	free_mlx(t_game *g)
 {
-	int	i;
-
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
-	i = 0;
-	while (i < TEX_COUNT)
-	{
-		if (g->tex[i].i.img)
-			mlx_destroy_image(g->mlx, g->tex[i].i.img);
-		i++;
-	}
+	if (g->tex_no.i.img)
+		mlx_destroy_image(g->mlx, g->tex_no.i.img);
+	if (g->tex_so.i.img)
+		mlx_destroy_image(g->mlx, g->tex_so.i.img);
+	if (g->tex_we.i.img)
+		mlx_destroy_image(g->mlx, g->tex_we.i.img);
+	if (g->tex_ea.i.img)
+		mlx_destroy_image(g->mlx, g->tex_ea.i.img);
+	if (g->floor_tex.i.img)
+		mlx_destroy_image(g->mlx, g->floor_tex.i.img);
 	if (g->frame.img)
 		mlx_destroy_image(g->mlx, g->frame.img);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
 }
+

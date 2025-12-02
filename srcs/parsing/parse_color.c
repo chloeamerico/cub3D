@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 15:36:13 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:57:19 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static int	find_type(t_game *game, char *line)
 		i++;
 	if (line[i] == 'F')
 	{
-		if (game->config->type == 1)
+		if (game->config.type == 1)
 			return (ft_printf("Error1 : Only 1 F and 1 C line needed.\n"), 1);
-		game->config->type = 1;
+		game->config.type = 1;
 	}
 	else if (line[i] == 'C')
 	{
-		if (game->config->type == 2)
+		if (game->config.type == 2)
 			return (ft_printf("Error2 : Only 1 F and 1 C line needed.\n"), 1);
-		game->config->type = 2;
+		game->config.type = 2;
 	}
 	return (0);
 }
@@ -102,17 +102,17 @@ static int	fill_first_struct(t_game *game, char **tab)
 	int	*f_or_c;
 
 	i = 0;
-	if (game->config->type == 1)
+	if (game->config.type == 1)
 	{
-		if (game->config->f[0] != 0)
+		if (game->config.f[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config->f;
+		f_or_c = game->config.f;
 	}
 	else
 	{
-		if (game->config->c[0] != 0)
+		if (game->config.c[0] != 0)
 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config->c;
+		f_or_c = game->config.c;
 	}
 	i = 0;
 	while (tab[i])
@@ -161,7 +161,7 @@ int	parse_color(char *line, t_game *game, int start)
 		return (1);
 	if (fill_first_struct(game, tab))
 		return (free_char_tab(tab), 1);
-	if (check_values(game->config))
+	if (check_values(&game->config))
 		return (1);
 	return (0);
 }

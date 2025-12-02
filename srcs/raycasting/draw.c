@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:57:49 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/11/13 18:22:07 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:01:13 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	draw_span(t_game *g, int x, t_span s, uint32_t col)
 // 	}
 // }
 
-static int	get_wall_tx(t_game *g, t_ray *r, int id)
+static int	get_wall_tx(t_game *g, t_ray *r, t_tex *t)
 {
 	double	pos;
 
@@ -87,15 +87,15 @@ static int	get_wall_tx(t_game *g, t_ray *r, int id)
 		pos = g->py + r->perp * r->ray_y;
 	else
 		pos = g->px + r->perp * r->ray_x;
-	pos *= g->tex[id].i.w;
-	pos = fmod(pos, g->tex[id].i.w);
+	pos *= t->i.w;
+	pos = fmod(pos, t->i.w);
 	if ((r->side == 0 && r->ray_x > 0)
 		|| (r->side == 1 && r->ray_y < 0))
-		pos = g->tex[id].i.w - pos - 1;
+		pos = t->i.w - pos - 1;
 	return ((int)pos);
 }
 
-void	draw_walls(t_game *g, int x, t_ray *r, int tex_id)
+void	draw_walls(t_game *g, int x, t_ray *r, t_tex *tex)
 {
 	int		h;
 	int		y;
@@ -110,19 +110,20 @@ void	draw_walls(t_game *g, int x, t_ray *r, int tex_id)
 	ty = 0;
 	if (y < 0)
 	{
-		ty = (-y) * ((double)g->tex[tex_id].i.h / h);
+		ty = (-y) * ((double)tex->i.h / h);
 		y = 0;
 	}
-	step = (double)g->tex[tex_id].i.h / h;
-	tx = get_wall_tx(g, r, tex_id);
+	step = (double)tex->i.h / h;
+	tx = get_wall_tx(g, r, tex);
 	while (y < H && y < H / 2 + h / 2)
 	{
 		put_px(&g->frame, x, y,
-			get_texel(&g->tex[tex_id], tx, (int)ty));
+			get_texel(tex, tx, (int)ty));
 		ty += step;
 		y++;
 	}
 }
+
 
 // static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
 // {
@@ -281,19 +282,19 @@ static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
 void	draw_column(t_game *g, int x, t_ray *r)
 {
 	int		line_h;
-	int		tex_id;
 	int		ceil_end;
 	int		floor_begin;
 	t_span	s;
+	t_tex	*tex;
 
 	line_h = (int)((double)H / fmax(r->perp, 1e-6));
-	tex_id = choose_tex_id(r);
+	tex = choose_texture(g, r);
 	ceil_end = -line_h / 2 + H / 2 - 1;
 	floor_begin = line_h / 2 + H / 2;
 	s.y0 = 0;
 	s.y1 = ceil_end;
 	draw_span(g, x, s, g->ceil_col);
-	draw_walls(g, x, r, tex_id);
+	draw_walls(g, x, r, tex);
 	if (floor_begin < H)
 		draw_floor_column(g, x, r, floor_begin);
 }

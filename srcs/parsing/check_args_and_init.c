@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 14:28:36 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 12:54:54 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,24 +97,16 @@ int	init_struct(t_game *game, char **argv)
 
 	i = 0;
 	game->file_map = load_file(argv[1]);
-	game->config = malloc(sizeof(t_config));
-	if (!game->config)
-		return (1);
-	game->config->no_texture = NULL;
-	game->config->so_texture = NULL;
-	game->config->we_texture = NULL;
-	game->config->ea_texture = NULL;
+	game->config.no_texture = NULL;
+	game->config.so_texture = NULL;
+	game->config.we_texture = NULL;
+	game->config.ea_texture = NULL;
 	while (i <= 2)
 	{
-		game->config->c[i] = 0;
+		game->config.c[i] = 0;
+		game->config.f[i] = 0;
 		i++;
 	}
-	i = 0;
-	while (i <= 2)
-	{
-		game->config->f[i] = 0;
-		i++;
-	}
-	game->config->type = 0;
+	game->config.type = 0;
 	return (0);
 }
