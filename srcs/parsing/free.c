@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:45:14 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 15:45:17 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:18:55 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	free_int_tab(int **tab, int h)
 // 	free(g->mlx);
 // }
 
-
 static void	free_texture(t_game *game)
 {
 	if (game->config.ea_texture)
@@ -97,5 +96,21 @@ void	free_all_local(t_game *g)
 		free_int_tab(g->map_int, g->map_h);
 	if (g->data)
 		free(g->data);
-	free_texture(g);	
+	free_texture(g);
+}
+
+int	is_number(char *s)
+{
+	int	i;
+
+	if (!s || !s[0])
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/11/14 15:04:13 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:09:43 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,9 @@ int	parsing_map(t_game *game)
 	if (init_data_struct(game))
 		return (1);
 	if (check_player(game))
-		return (free(game->data), 1);
+		return (1);
 	fill_size_map(game);
 	if (valid_path(game))
-		return (free(game->data), 1);
+		return (1);
 	return (0);
 }

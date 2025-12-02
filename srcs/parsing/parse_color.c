@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 12:57:19 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:19:04 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,145 +22,83 @@ static int	find_type(t_game *game, char *line)
 	if (line[i] == 'F')
 	{
 		if (game->config.type == 1)
-			return (ft_printf("Error1 : Only 1 F and 1 C line needed.\n"), 1);
+			return (ft_printf("Error : Only 1 F and 1 C line needed.\n"), 1);
 		game->config.type = 1;
 	}
 	else if (line[i] == 'C')
 	{
 		if (game->config.type == 2)
-			return (ft_printf("Error2 : Only 1 F and 1 C line needed.\n"), 1);
+			return (ft_printf("Error : Only 1 F and 1 C line needed.\n"), 1);
 		game->config.type = 2;
 	}
 	return (0);
 }
 
-//fait un split pour extraire les valeurs dans un tab
-// on verifie qu'il n'y ait que 3 valeurs
 static char	**extract_color(char *line, int i)
 {
-	char	**tab_couleur;
-	int		j;
+	char	**tab;
+	int		count;
 
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	tab_couleur = ft_split(line + i, ',');
-	if (!tab_couleur)
+	tab = ft_split(line + i, ',');
+	if (!tab)
 		return (NULL);
-	i = 0;
-	while (tab_couleur[i])
-	{
-		j = 0;
-		while (tab_couleur[i][j])
-		{
-			if ((tab_couleur[i][j] < '0' || tab_couleur[i][j] > '9')
-				&& (tab_couleur[i][j] != '\n' && tab_couleur[i][j] != ' '))
-				return (err1(tab_couleur), NULL);
-			j++;
-		}
-		i++;
-	}
-	if (i != 3)
-		return (err2(tab_couleur), NULL);
-	return (tab_couleur);
+	count = 0;
+	while (tab[count])
+		count++;
+	if (count != 3)
+		return (err2(tab), NULL);
+	if (!is_number(tab[0]) || !is_number(tab[1]) || !is_number(tab[2]))
+		return (err1(tab), NULL);
+	return (tab);
 }
-
-//AVANT DE REDUIRE
-// static int	fill_first_struct(t_game *game, char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (game->config->type == 1)
-// 	{
-// 		if (game->config->F[0] != 0)
-// 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-// 		i = 0;
-// 		while (tab[i])
-// 		{
-// 			game->config->F[i] = ft_atoi(tab[i]);
-// 			i++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (game->config->C[0] != 0)
-// 			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-// 		i = 0;
-// 		while (tab[i])
-// 		{
-// 			game->config->C[i] = ft_atoi(tab[i]);
-// 			i++;
-// 		}
-// 	}
-// 	free_char_tab(tab);
-// 	return (0);
-// }
 
 static int	fill_first_struct(t_game *game, char **tab)
 {
-	int	i;
-	int	*f_or_c;
+	int	*dest;
 
-	i = 0;
 	if (game->config.type == 1)
-	{
-		if (game->config.f[0] != 0)
-			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config.f;
-	}
+		dest = game->config.f;
 	else
-	{
-		if (game->config.c[0] != 0)
-			return (ft_printf("Error : Only one F and one C line needed.\n"), 1);
-		f_or_c = game->config.c;
-	}
-	i = 0;
-	while (tab[i])
-	{
-		f_or_c[i] = ft_atoi(tab[i]);
-		i++;
-	}
+		dest = game->config.c;
+	dest[0] = ft_atoi(tab[0]);
+	dest[1] = ft_atoi(tab[1]);
+	dest[2] = ft_atoi(tab[2]);
 	free_char_tab(tab);
 	return (0);
 }
 
-//on verifie que chaque couleur est dans la range
-static int	check_values(t_config *config)
+static int	check_values(t_config *cfg)
 {
-	if (config->type == 1)
+	if (cfg->type == 1)
 	{
-		if ((config->f[0] < 0 || config->f[0] > 255)
-			|| (config->f[1] < 0 || config->f[1] > 255)
-			|| (config->f[2] < 0 | config->f[2] > 255))
-			return (ft_printf("RGB colors are often in the range [0,255]\n"), 1);
+		if (cfg->f[0] < 0 || cfg->f[0] > 255
+			|| cfg->f[1] < 0 || cfg->f[1] > 255
+			|| cfg->f[2] < 0 || cfg->f[2] > 255)
+			return (ft_printf("Error : F colors must be [0,255]\n"), 1);
 	}
-	if (config->type == 2)
+	else
 	{
-		if ((config->c[0] < 0 || config->c[0] > 255)
-			|| (config->c[1] < 0 || config->c[1] > 255)
-			|| (config->c[2] < 0 || config->c[2] > 255))
-			return (ft_printf("RGB colors are often in the range [0,255]\n"), 1);
+		if (cfg->c[0] < 0 || cfg->c[0] > 255
+			|| cfg->c[1] < 0 || cfg->c[1] > 255
+			|| cfg->c[2] < 0 || cfg->c[2] > 255)
+			return (ft_printf("Error : C colors must be [0,255]\n"), 1);
 	}
 	return (0);
 }
 
-//extrait les 3 couleurs (rgb) separees pas une virgule
-//converti les str en entiers (atoi)
-//on verifie que chaque couleur est dans la range & qu'il n'y a que 3 valeurs,
-//pas de char invalides
-//stocke dans la struct
 int	parse_color(char *line, t_game *game, int start)
 {
 	char	**tab;
 
-	tab = NULL;
 	if (find_type(game, line))
 		return (1);
 	tab = extract_color(line, start);
 	if (!tab)
 		return (1);
 	if (fill_first_struct(game, tab))
-		return (free_char_tab(tab), 1);
+		return (1);
 	if (check_values(&game->config))
 		return (1);
 	return (0);
