@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 15:12:52 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 18:48:20 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/03 13:02:20 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,8 @@ int			check_map_close(t_game *game, char **map);
 int			valid_path(t_game *game);
 int			check_cub_char_invalid(char *line, int nb_conf);
 int			implement_config_line(t_game *game, int *nb_conf, int i);
+int			is_empty_or_whitespace(char *s);
+int			has_invalid_chars(char *s);
 void		free_char_tab(char **tab);
 void		free_int_tab(int **tab, int height);
 void		err1(char **tab);
@@ -232,5 +234,12 @@ void		mm_safe_px(t_game *g, int x, int y, uint32_t col);
 void		mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col);
 int			is_number(char *s);
 int			add_struct(t_game *g, char *path, char *line, int i);
+
+//main
+void		find_player(t_game *g);
+uint32_t	clr(int v);
+int			setup_world(t_game *g);
+int			init_and_parse(t_game *g, int ac, char **av);
+uint32_t	argb(int a, int r, int g, int b);
 
 #endif
