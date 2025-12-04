@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:43:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/04 16:00:55 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:28:40 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,12 @@ int	setup_world(t_game *g)
 		return (1);
 	find_player(g);
 	g->ceil_color = (g->config.c[0] << 16)
-	              | (g->config.c[1] << 8)
-	              | g->config.c[2];
-	
+		| (g->config.c[1] << 8)
+		| g->config.c[2];
 	g->floor_color = (g->config.f[0] << 16)
-	               | (g->config.f[1] << 8)
-	               | g->config.f[2];
-		return (0);
+		| (g->config.f[1] << 8)
+		| g->config.f[2];
+	return (0);
 }
 
 uint32_t	clr(int v)

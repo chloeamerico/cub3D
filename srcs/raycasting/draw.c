@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:57:49 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/04 16:03:29 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:26:42 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,9 +232,8 @@ void	draw_column(t_game *g, int x, t_ray *r)
 	draw_walls(g, x, r, tex);
 	if (floor_begin < H)
 	{
-	    t_span s;
-	    s.y0 = floor_begin;
-	    s.y1 = H - 1;
-	    draw_span(g, x, s, g->floor_color);
+		s.y0 = floor_begin;
+		s.y1 = H - 1;
+		draw_span(g, x, s, g->floor_color);
 	}
 }
