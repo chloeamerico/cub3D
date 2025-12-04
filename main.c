@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:16:14 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/03 13:03:05 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:04:25 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,6 @@ int	main(int ac, char **av, char **envp)
 		return (free_all_local(&g), 1);
 	if (!load_wall_textures(&g))
 		return (free_all_local(&g), 1);
-	load_floor_texture(&g, "texture/grass.xpm");
 	start_loop(&g);
 	free_all_local(&g);
 	return (0);

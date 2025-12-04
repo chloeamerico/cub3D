@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:57:49 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/02 14:55:16 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:03:29 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,30 +119,30 @@ typedef struct s_floor_ctx
 	int		y;
 }	t_floor_ctx;
 
-static void	floor_wall_pos(t_ray *r, double wall_x,
-			double *floor_x, double *floor_y)
-{
-	if (r->side == 0 && r->ray_x > 0)
-	{
-		*floor_x = r->map_x;
-		*floor_y = r->map_y + wall_x;
-	}
-	else if (r->side == 0 && r->ray_x < 0)
-	{
-		*floor_x = r->map_x + 1.0;
-		*floor_y = r->map_y + wall_x;
-	}
-	else if (r->side == 1 && r->ray_y > 0)
-	{
-		*floor_x = r->map_x + wall_x;
-		*floor_y = r->map_y;
-	}
-	else
-	{
-		*floor_x = r->map_x + wall_x;
-		*floor_y = r->map_y + 1.0;
-	}
-}
+// static void	floor_wall_pos(t_ray *r, double wall_x,
+// 			double *floor_x, double *floor_y)
+// {
+// 	if (r->side == 0 && r->ray_x > 0)
+// 	{
+// 		*floor_x = r->map_x;
+// 		*floor_y = r->map_y + wall_x;
+// 	}
+// 	else if (r->side == 0 && r->ray_x < 0)
+// 	{
+// 		*floor_x = r->map_x + 1.0;
+// 		*floor_y = r->map_y + wall_x;
+// 	}
+// 	else if (r->side == 1 && r->ray_y > 0)
+// 	{
+// 		*floor_x = r->map_x + wall_x;
+// 		*floor_y = r->map_y;
+// 	}
+// 	else
+// 	{
+// 		*floor_x = r->map_x + wall_x;
+// 		*floor_y = r->map_y + 1.0;
+// 	}
+// }
 
 // static void	floor_tex_loop(t_game *g, int x, t_ray *r, t_floor_ctx c)
 // {
@@ -171,48 +171,48 @@ static void	floor_wall_pos(t_ray *r, double wall_x,
 // 	}
 // }
 
-static void	floor_tex_loop(t_game *g, int x, t_ray *r, t_floor_ctx c)
-{
-	double	dist;
-	double	w;
-	double	cur_x;
-	double	cur_y;
-	int		tex[2];
+// static void	floor_tex_loop(t_game *g, int x, t_ray *r, t_floor_ctx c)
+// {
+// 	double	dist;
+// 	double	w;
+// 	double	cur_x;
+// 	double	cur_y;
+// 	int		tex[2];
 
-	while (c.y < H)
-	{
-		dist = (double)H / (2.0 * c.y - H + 0.00001);
-		w = dist / fmax(r->perp, 1e-6);
-		cur_x = w * c.fx + (1.0 - w) * g->px;
-		cur_y = w * c.fy + (1.0 - w) * g->py;
-		tex[0] = (int)(cur_x * g->floor_tex.i.w) % g->floor_tex.i.w;
-		tex[1] = (int)(cur_y * g->floor_tex.i.h) % g->floor_tex.i.h;
-		if (tex[0] < 0)
-			tex[0] += g->floor_tex.i.w;
-		if (tex[1] < 0)
-			tex[1] += g->floor_tex.i.h;
-		put_px(&g->frame, x, c.y,
-			get_texel(&g->floor_tex, tex[0], tex[1]));
-		c.y++;
-	}
-}
+// 	while (c.y < H)
+// 	{
+// 		dist = (double)H / (2.0 * c.y - H + 0.00001);
+// 		w = dist / fmax(r->perp, 1e-6);
+// 		cur_x = w * c.fx + (1.0 - w) * g->px;
+// 		cur_y = w * c.fy + (1.0 - w) * g->py;
+// 		tex[0] = (int)(cur_x * g->floor_tex.i.w) % g->floor_tex.i.w;
+// 		tex[1] = (int)(cur_y * g->floor_tex.i.h) % g->floor_tex.i.h;
+// 		if (tex[0] < 0)
+// 			tex[0] += g->floor_tex.i.w;
+// 		if (tex[1] < 0)
+// 			tex[1] += g->floor_tex.i.h;
+// 		put_px(&g->frame, x, c.y,
+// 			get_texel(&g->floor_tex, tex[0], tex[1]));
+// 		c.y++;
+// 	}
+// }
 
-static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
-{
-	double		wall_x;
-	t_floor_ctx	c;
+// static void	draw_floor_column(t_game *g, int x, t_ray *r, int floor_begin)
+// {
+// 	double		wall_x;
+// 	t_floor_ctx	c;
 
-	if (floor_begin < 0)
-		floor_begin = 0;
-	if (r->side == 0)
-		wall_x = g->py + r->perp * r->ray_y;
-	else
-		wall_x = g->px + r->perp * r->ray_x;
-	wall_x -= floor(wall_x);
-	floor_wall_pos(r, wall_x, &c.fx, &c.fy);
-	c.y = floor_begin;
-	floor_tex_loop(g, x, r, c);
-}
+// 	if (floor_begin < 0)
+// 		floor_begin = 0;
+// 	if (r->side == 0)
+// 		wall_x = g->py + r->perp * r->ray_y;
+// 	else
+// 		wall_x = g->px + r->perp * r->ray_x;
+// 	wall_x -= floor(wall_x);
+// 	floor_wall_pos(r, wall_x, &c.fx, &c.fy);
+// 	c.y = floor_begin;
+// 	floor_tex_loop(g, x, r, c);
+// }
 
 void	draw_column(t_game *g, int x, t_ray *r)
 {
@@ -228,8 +228,13 @@ void	draw_column(t_game *g, int x, t_ray *r)
 	floor_begin = line_h / 2 + H / 2;
 	s.y0 = 0;
 	s.y1 = ceil_end;
-	draw_span(g, x, s, g->ceil_col);
+	draw_span(g, x, s, g->ceil_color);
 	draw_walls(g, x, r, tex);
 	if (floor_begin < H)
-		draw_floor_column(g, x, r, floor_begin);
+	{
+	    t_span s;
+	    s.y0 = floor_begin;
+	    s.y1 = H - 1;
+	    draw_span(g, x, s, g->floor_color);
+	}
 }

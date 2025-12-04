@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:43:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/03 13:03:21 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:00:55 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,14 @@ int	setup_world(t_game *g)
 	if (!g->map_int)
 		return (1);
 	find_player(g);
-	g->ceil_col = argb(255, 0x87, 0xCE, 0xEB);
-	g->floor_col = argb(255, 0x44, 0x44, 0x44);
-	return (0);
+	g->ceil_color = (g->config.c[0] << 16)
+	              | (g->config.c[1] << 8)
+	              | g->config.c[2];
+	
+	g->floor_color = (g->config.f[0] << 16)
+	               | (g->config.f[1] << 8)
+	               | g->config.f[2];
+		return (0);
 }
 
 uint32_t	clr(int v)
