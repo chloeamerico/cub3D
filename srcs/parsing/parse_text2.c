@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_text2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:47:27 by lleichtn          #+#    #+#             */
-/*   Updated: 2025/12/02 18:49:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:40:22 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,17 @@ static int	set_ea(t_game *g, char *path)
 
 int	add_struct(t_game *g, char *path, char *line, int i)
 {
-	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	if (line[i] == 'N' && line[i + 1] == 'O' && (line[i + 2] == ' ' 
+		|| line[i + 2] == '\t'))
 		return (set_no(g, path));
-	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	if (line[i] == 'S' && line[i + 1] == 'O' && (line[i + 2] == ' '
+		|| line[i + 2] == '\t'))
 		return (set_so(g, path));
-	if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+	if (line[i] == 'W' && line[i + 1] == 'E' && (line[i + 2] == ' '
+		|| line[i + 2] == '\t'))
 		return (set_we(g, path));
-	if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+	if (line[i] == 'E' && line[i + 1] == 'A' && (line[i + 2] == ' '
+		|| line[i + 2] == '\t'))
 		return (set_ea(g, path));
 	free(path);
 	return (ft_printf("Error : invalid texture identifier\n"), 1);
