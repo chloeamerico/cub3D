@@ -6,12 +6,13 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 14:21:02 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/08 12:21:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:25:49 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+// Dessine un cercle rempli
 void	mm_draw_circle(t_game *g, t_mm_circle c)
 {
 	int			x;
@@ -31,6 +32,7 @@ void	mm_draw_circle(t_game *g, t_mm_circle c)
 	}
 }
 
+// Dessine la flèche de direction
 void	direction_mm(t_game *g, t_mm_dir d)
 {
 	double		x;
@@ -49,12 +51,14 @@ void	direction_mm(t_game *g, t_mm_dir d)
 	}
 }
 
+// Sécurise l’écriture d’un pixel
 void	safescreen_mm(t_game *g, int x, int y, uint32_t col)
 {
 	if (x >= 0 && y >= 0 && x < W && y < H)
 		put_px(&g->frame, x, y, col);
 }
 
+// Dessine un rectangle plein
 void	mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col)
 {
 	int			i;

@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:00:00 by user              #+#    #+#             */
-/*   Updated: 2025/12/08 12:20:38 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:25:00 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_mm_cell
 	uint32_t	col;
 }	t_mm_cell;
 
+// Dessine le fond de la minimap
 static void	fond_mm(t_game *g)
 {
 	t_mm_rect	r;
@@ -40,6 +41,7 @@ static void	fond_mm(t_game *g)
 	mm_draw_rect(g, r, 0x80000000);
 }
 
+// Dessine une ligne de cases de la minimap
 static void	ligne_mm(t_game *g, int gy)
 {
 	t_mm_cell	c;
@@ -68,6 +70,7 @@ static void	ligne_mm(t_game *g, int gy)
 	}
 }
 
+// Dessine toutes les cases de la minimap
 static void	case_mm(t_game *g)
 {
 	int			gy;
@@ -80,6 +83,7 @@ static void	case_mm(t_game *g)
 	}
 }
 
+// Dessine le joueur sur la minimap
 static void	player_mm(t_game *g)
 {
 	t_mm_circle	c;
