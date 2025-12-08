@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:00:00 by user              #+#    #+#             */
-/*   Updated: 2025/12/02 14:56:37 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:20:38 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,68 +29,7 @@ typedef struct s_mm_cell
 	uint32_t	col;
 }	t_mm_cell;
 
-// static void	mm_safe_px(t_game *g, int x, int y, uint32_t col)
-// {
-// 	if (x >= 0 && y >= 0 && x < W && y < H)
-// 		put_px(&g->frame, x, y, col);
-// }
-
-// static void	mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col)
-// {
-// 	int			i;
-// 	int			j;
-
-// 	j = 0;
-// 	while (j < r.h)
-// 	{
-// 		i = 0;
-// 		while (i < r.w)
-// 		{
-// 			mm_safe_px(g, r.x + i, r.y + j, col);
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// }
-
-// static void	mm_draw_circle(t_game *g, t_mm_circle c)
-// {
-// 	int			x;
-// 	int			y;
-
-// 	y = -c.r;
-// 	while (y <= c.r)
-// 	{
-// 		x = -c.r;
-// 		while (x <= c.r)
-// 		{
-// 			if (x * x + y * y <= c.r * c.r)
-// 				mm_safe_px(g, c.x + x, c.y + y, c.col);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
-// static void	mm_draw_dir(t_game *g, t_mm_dir d)
-// {
-// 	double		x;
-// 	double		y;
-// 	int			i;
-
-// 	x = (double)d.x;
-// 	y = (double)d.y;
-// 	i = 0;
-// 	while (i < d.len)
-// 	{
-// 		mm_safe_px(g, (int)x, (int)y, d.col);
-// 		x += g->dir_x;
-// 		y += g->dir_y;
-// 		i++;
-// 	}
-// }
-
-static void	mm_draw_bg(t_game *g)
+static void	fond_mm(t_game *g)
 {
 	t_mm_rect	r;
 
@@ -101,7 +40,7 @@ static void	mm_draw_bg(t_game *g)
 	mm_draw_rect(g, r, 0x80000000);
 }
 
-static void	mm_draw_cell_line(t_game *g, int gy)
+static void	ligne_mm(t_game *g, int gy)
 {
 	t_mm_cell	c;
 	t_mm_rect	r;
@@ -129,19 +68,19 @@ static void	mm_draw_cell_line(t_game *g, int gy)
 	}
 }
 
-static void	mm_draw_cells(t_game *g)
+static void	case_mm(t_game *g)
 {
 	int			gy;
 
 	gy = -MM_R;
 	while (gy <= MM_R)
 	{
-		mm_draw_cell_line(g, gy);
+		ligne_mm(g, gy);
 		gy++;
 	}
 }
 
-static void	mm_draw_player(t_game *g)
+static void	player_mm(t_game *g)
 {
 	t_mm_circle	c;
 	t_mm_dir	d;
@@ -161,12 +100,12 @@ static void	mm_draw_player(t_game *g)
 	d.y = pcy;
 	d.len = 8;
 	d.col = 0xFFFF0000;
-	mm_draw_dir(g, d);
+	direction_mm(g, d);
 }
 
 void	minimap_draw(t_game *g)
 {
-	mm_draw_bg(g);
-	mm_draw_cells(g);
-	mm_draw_player(g);
+	fond_mm(g);
+	case_mm(g);
+	player_mm(g);
 }

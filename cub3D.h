@@ -6,7 +6,7 @@
 /*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 15:12:52 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/04 16:03:07 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:21:03 by lleichtn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,8 +231,8 @@ void		free_all_local(t_game *g);
 // minimap 
 
 void		mm_draw_circle(t_game *g, t_mm_circle c);
-void		mm_draw_dir(t_game *g, t_mm_dir d);
-void		mm_safe_px(t_game *g, int x, int y, uint32_t col);
+void		direction_mm(t_game *g, t_mm_dir d);
+void		safescreen_mm(t_game *g, int x, int y, uint32_t col);
 void		mm_draw_rect(t_game *g, t_mm_rect r, uint32_t col);
 int			is_number(char *s);
 int			add_struct(t_game *g, char *path, char *line, int i);
