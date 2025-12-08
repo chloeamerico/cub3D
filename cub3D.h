@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 15:12:52 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/08 12:21:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:32:25 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,11 @@ typedef struct s_game
 	double		pl_x;
 	double		pl_y;
 
-	// uint32_t	ceil_col;
-	// uint32_t	floor_col;
-
 	int			key[65536];
 	double		mouse_sens;
 	int			mouse_captured;
-	uint32_t 	floor_color;
-	uint32_t 	ceil_color;
+	uint32_t	floor_color;
+	uint32_t	ceil_color;
 }	t_game;
 
 //minimap struct
