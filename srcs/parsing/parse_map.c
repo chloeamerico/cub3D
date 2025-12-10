@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:22:41 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 17:09:43 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:30:59 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static int	check_player(t_game *game)
 // 	ft_printf("hauteur map = %i\n", i);
 // }
 
-//peut etre que la fonciton bug
 static void	fill_size_map(t_game *game)
 {
 	int	i;
@@ -142,6 +141,8 @@ int	parsing_map(t_game *game)
 	if (check_player(game))
 		return (1);
 	fill_size_map(game);
+	if (game->data->map_height * game->data->map_width > MAX_SIZE_MAP)
+		return (ft_printf("Map too Big\n"), 1);
 	if (valid_path(game))
 		return (1);
 	return (0);

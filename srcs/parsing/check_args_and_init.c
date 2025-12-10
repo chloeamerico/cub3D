@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args_and_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 13:59:25 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 12:54:54 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:29:05 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ static int	check_extension_cub(char *arg)
 	return (0);
 }
 
-int	check_file_exist(char *name)
-{
-	int	fd;
-
-	fd = open(name, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_printf("Error : opening the file, wrong path %s\n", name);
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
-
 int	check_arg(int argc, char **argv)
 {
 	if (argc != 2)
@@ -59,6 +45,27 @@ int	check_arg(int argc, char **argv)
 	return (0);
 }
 
+static int	line_count(char *name_map)
+{
+	int		fd;
+	int		count;
+	char	*line;
+
+	count = 0;
+	fd = open(name_map, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (count);
+}
+
 // ouvre le fichier, lit le fichier .cub ligne par ligne,
 // et le transforme en tableau char **
 static char	**load_file(char *name_map)
@@ -67,14 +74,16 @@ static char	**load_file(char *name_map)
 	char	*line;
 	int		fd;
 	int		i;
+	int		count_line;
 
-	i = 0;
-	fd = open(name_map, O_RDONLY);
-	if (fd < 0)
-		return (perror("Error opening file"), NULL);
-	file = malloc(sizeof(char *) * 100);
+	count_line = line_count(name_map);
+	if (line_count < 0)
+		return (ft_printf("Error: openning file"), NULL);
+	file = malloc(sizeof(char *) * (count_line + 1));
 	if (!file)
 		return (NULL);
+	i = 0;
+	fd = open(name_map, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -84,11 +93,6 @@ static char	**load_file(char *name_map)
 	file[i] = NULL;
 	return (close(fd), file);
 }
-
-// static void	init_struct_tab(t_game *game)
-// {
-// 	game->config->C[0]	
-// }
 
 //fonciton poru initialiser les variables de la structure
 int	init_struct(t_game *game, char **argv)

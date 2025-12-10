@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:24:56 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/08 16:42:09 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:22:24 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ int	is_config_line(char *line)
 		return (1);
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if (line[i] == 'N' && line[i + 1] == 'O' && (line[i + 2] == ' ' 
-		|| line[i + 2] == '\t'))
+	if (line[i] == 'N' && line[i + 1] == 'O' && (line[i + 2] == ' '
+			|| line[i + 2] == '\t'))
 		return (0);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && (line[i + 2] == ' '
-		|| line[i + 2] == '\t'))
+			|| line[i + 2] == '\t'))
 		return (0);
 	else if (line[i] == 'W' && line[i + 1] == 'E' && (line[i + 2] == ' '
-		|| line[i + 2] == '\t'))
+			|| line[i + 2] == '\t'))
 		return (0);
 	else if (line[i] == 'E' && line[i + 1] == 'A' && (line[i + 2] == ' '
-		|| line[i + 2] == '\t'))
+			|| line[i + 2] == '\t'))
 		return (0);
 	else if (line[i] == 'F' && (line[i + 1] == ' ' || line[i + 2] == '\t'))
 		return (0);

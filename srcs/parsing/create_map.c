@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:52:02 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/02 18:12:58 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/10 15:29:53 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,25 @@
 //fonction pour extraire la map 
 int	extract_map(t_game *game, int line_map_start)
 {
-	int		i;
+	int	i;
+	int	map_line_count;
 
-	i = 0;
-	game->map = malloc(sizeof(char *) * 100);
+	map_line_count = 0;
+	i = line_map_start;
+	while (game->file_map[i])
+	{
+		map_line_count++;
+		i++;
+	}
+	game->map = malloc(sizeof(char *) * (map_line_count + 1));
 	if (!game->map)
 		return (1);
+	i = 0;
 	while (game->file_map[line_map_start])
 	{
 		game->map[i] = ft_strdup(game->file_map[line_map_start]);
+		if (!game->map[i])
+			return (free_char_tab(game->map), 1);
 		i++;
 		line_map_start++;
 	}
