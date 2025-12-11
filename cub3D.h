@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 15:12:52 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/10 15:32:03 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:05:32 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int			check_cub_char_invalid(char *line, int nb_conf);
 int			implement_config_line(t_game *game, int *nb_conf, int i);
 int			is_empty_or_whitespace(char *s);
 int			has_invalid_chars(char *s);
+int			ft_cub_strlen(char *str);
 void		free_char_tab(char **tab);
 void		free_int_tab(int **tab, int height);
 void		err1(char **tab);

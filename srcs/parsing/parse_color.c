@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lleichtn <lleichtn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:45:07 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/08 15:24:03 by lleichtn         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:04:48 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,14 @@ static char	**extract_color(char *line, int i)
 	return (tab);
 }
 
-// static int	fill_first_struct(t_game *game, char **tab)
-// {
-// 	int	*dest;
-
-// 	if (game->config.type == 1)
-// 		dest = game->config.f;
-// 	else
-// 		dest = game->config.c;
-// 	dest[0] = ft_atoi(tab[0]);
-// 	dest[1] = ft_atoi(tab[1]);
-// 	dest[2] = ft_atoi(tab[2]);
-// 	free_char_tab(tab);
-// 	return (0);
-// }
-
 static int	fill_first_struct(t_game *game, char **tab)
 {
 	int	*dest;
 
 	if (!tab[0] || !tab[1] || !tab[2]
-		|| ft_strlen(tab[0]) > 4
-		|| ft_strlen(tab[1]) > 4
-		|| ft_strlen(tab[2]) > 5)
+		|| ft_cub_strlen(tab[0]) > 4
+		|| ft_cub_strlen(tab[1]) > 4
+		|| ft_cub_strlen(tab[2]) > 5)
 	{
 		free_char_tab(tab);
 		return (ft_printf("Error : RGB value too long\n"), 1);

@@ -6,7 +6,7 @@
 /*   By: camerico <camerico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:34:00 by camerico          #+#    #+#             */
-/*   Updated: 2025/12/10 15:32:30 by camerico         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:06:41 by camerico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,19 @@ int	has_invalid_chars(char *s)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_cub_strlen(char *str)
+{
+	size_t	index;
+
+	index = 0;
+	if (!str)
+		return (0);
+	while (str[index] == ' ')
+		index++;
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
 }
